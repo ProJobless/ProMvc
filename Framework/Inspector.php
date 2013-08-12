@@ -5,6 +5,11 @@ namespace Framework;
 use Framework\ArrayMethods as ArrayMethods;
 use Framework\StringMethods as StringMethods;
 
+/**
+ * Use for identify which properties a class should overload getters/setters
+ * @author sbo
+ *
+ */
 class Inspector {
 	
 	protected $_class;
@@ -103,6 +108,10 @@ class Inspector {
 		return $_meta["class"];
 	}
 	
+	/**
+	 * Return an array of the class properties
+	 * @return array
+	 */
 	public function getClassProperties()
 	{
 		if (!isset($_properties))

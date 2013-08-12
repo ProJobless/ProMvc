@@ -25,6 +25,12 @@ class StringMethods {
 		self::$_delimiter =  $delimiter;
 	}
 	
+	/**
+	 * Return an array match from a pattern
+	 * @param string $string
+	 * @param string $pattern
+	 * @return array|NULL
+	 */
 	public static function match($string, $pattern)
 	{
 		preg_match_all(self::_normalize($pattern), $string, $matches, PREG_PATTERN_ORDER);
