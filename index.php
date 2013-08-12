@@ -1,5 +1,9 @@
 <?php
 
+use Framework\Configuration;
+
+use Framework\Configuration\Driver\Ini;
+
 use Framework\Inspector;
 
 use Framework\StringMethods;
@@ -12,11 +16,10 @@ try {
 	require "Core/Autoload.php";
 	spl_autoload_register(array('autoloader', 'autoload'));
 	
-	//var_dump(StringMethods::match("contrl/action/param/divers", "/"));
-	
-	
-	$hello = new Hello();
-	$hello->world = null;
+	// Configuration
+	$config = new Configuration(array("type"=>"ini"));
+	$config = $config->initialize()->parse("config");
+	var_dump($config);
 	
 	
 } catch (Exception $e) {
