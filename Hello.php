@@ -2,9 +2,10 @@
 class Hello extends Framework\Base {
 	
 	/**
-	 * @readwrite
+	 * @write
+	 * @notnull
 	 */
-	protected $_world = "Bobby";
+	protected $_world;
 
 }
 

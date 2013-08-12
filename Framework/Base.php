@@ -76,6 +76,10 @@ class Base {
 				{
 					throw $this->_getExceptionForReadonly($normalized);
 				}
+				if (!empty($meta["@notnull"]) && $arguments[0] === null)
+				{
+					throw $this->_getExceptionForNotnull($normalized);
+				}
 				
 				$this->$property = $arguments[0];
 				return $this;
@@ -99,6 +103,11 @@ class Base {
 	protected function _getExceptionForReadonly($property)
 	{
 		return new \Exception("{$property} is read-only");
+	}
+	
+	protected function _getExceptionForNotnull($property)
+	{
+		return new \Exception("{$property} can not set to null");
 	}
 	
 	protected function _getExceptionForWriteonly($property)

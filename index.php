@@ -16,7 +16,7 @@ try {
 	
 	
 	$hello = new Hello();
-	echo $hello->world;
+	$hello->world = null;
 	
 	
 } catch (Exception $e) {
