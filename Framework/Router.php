@@ -33,7 +33,7 @@ class Router extends Base {
 	
 	public function addRoute($route)
 	{
-		$this->_routes = $route;
+		$this->_routes[] = $route;
 		return $this;
 	}
 	
@@ -67,8 +67,10 @@ class Router extends Base {
 		$controller = "index";
 		$action     = "index";
 		
+		
 		foreach ($this->_routes as $route)
 		{
+			
 			$matches = $route->matches($url);
 			if ($matches)
 			{
@@ -80,7 +82,6 @@ class Router extends Base {
 				return;
 			}
 		}
-		
 		$parts = explode("/", trim($url, "/"));
 		
 		if (sizeof($parts) > 0)
@@ -94,7 +95,7 @@ class Router extends Base {
 			}
 		}
 		
-		$this->_pass($controller);
+		$this->_pass($controller, $action, $parameters);
 	}
 	
 	public function _pass($controller, $action, $parameters = array())
@@ -106,6 +107,7 @@ class Router extends Base {
 		
 		try 
 		{
+			
 			$instance = new $name(array(
 					"parameters" => $parameters
 			));

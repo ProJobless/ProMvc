@@ -1,5 +1,9 @@
 <?php
 
+use Framework\Router\Route\Simple;
+
+use Framework\Router;
+
 use Framework\Registry;
 
 use Framework\Configuration;
@@ -18,9 +22,14 @@ try {
 	require "Core/Autoload.php";
 	spl_autoload_register(array('autoloader', 'autoload'));
 	
-	$c = new Hello();
-	Registry::set('db', $c);
-	var_dump(Registry::getListe());
+	$router = new Router();
+	$router->addRoute(new Simple(array(
+			"pattern" => ":name/profile",
+			"controller" => "home",
+			"action" => "index"
+			)));
+	$router->url = "bader/profile";
+	$router->dispatch();
 	
 	
 } catch (Exception $e) {
