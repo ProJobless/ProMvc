@@ -1,5 +1,7 @@
 <?php
 
+use Framework\Registry;
+
 use Framework\Configuration;
 
 use Framework\Configuration\Driver\Ini;
@@ -16,10 +18,9 @@ try {
 	require "Core/Autoload.php";
 	spl_autoload_register(array('autoloader', 'autoload'));
 	
-	// Configuration
-	$config = new Configuration(array("type"=>"ini"));
-	$config = $config->initialize()->parse("config");
-	var_dump($config);
+	$c = new Hello();
+	Registry::set('db', $c);
+	var_dump(Registry::getListe());
 	
 	
 } catch (Exception $e) {
