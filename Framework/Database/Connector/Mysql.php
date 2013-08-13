@@ -66,6 +66,8 @@ class Mysql extends Connector {
 		return false;
 	}
 	
+	
+	
 	/**
 	 * Connects to the database
 	 * @return \Framework\Database\Connector\Mysql

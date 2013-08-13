@@ -18,6 +18,8 @@ class Database extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
+		var_dump($method);
+		
 		return new \Exception("{$method} method not implemented");
 	}
 	
@@ -37,6 +39,16 @@ class Database extends Base {
 				throw new \Exception("Invalid type");
 				break;
 		}
+	}
+	
+	public function set0()
+	{
+		echo "method special";
+	}
+	
+	public function set1()
+	{
+		echo "method special";
 	}
 }
 

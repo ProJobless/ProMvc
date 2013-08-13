@@ -15,11 +15,22 @@ $configuration = new Framework\Configuration(array(
 ));
 Framework\Registry::set("configuration", $configuration->initialize());
 
-// 4
+// 4. load and initialize the Database class - does not connect
+$database = new Framework\Database(array(
+	"type", "mysql",
+	"options" => array(
+		"host"=>"localhost",
+		"username"=>"admin",
+		"password"=>"",
+		"schema"=>"prophpmvc",
+		"port"=>"3306"
+	)
+));
+Framework\Registry::set("database", $database);
 
 // 5
 
-// 6 load and initialize the Session class
+// 6. load and initialize the Session class
 $session = new Framework\Session();
 Framework\Registry::set("session", $session->initialize());
 
@@ -39,6 +50,7 @@ try {
 
 // 9. unset global variables
 unset($configuration);
+unset($database);
 unset($router);
 
 /*

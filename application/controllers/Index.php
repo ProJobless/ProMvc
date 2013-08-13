@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use Framework\Registry;
+
 use Framework\Controller;
 
 class Index extends Controller {
@@ -24,11 +26,19 @@ class Index extends Controller {
 	}
 	
 	/**
-	 * @before init, authenticate, init
-	 * @after notify
 	 */
 	public function index()
 	{
+		$db = Registry::get("database");
+		
+		var_dump($db);
+		
+		$db->connect();
+		$db->query()
+			->from("users")
+			->all()
+		;
+		
 		echo "<p>here x)</p>";	
 	}
 	
