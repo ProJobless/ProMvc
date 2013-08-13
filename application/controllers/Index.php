@@ -6,9 +6,38 @@ use Framework\Controller;
 
 class Index extends Controller {
 	
+/**
+	 * @once
+	 * @protected
+	 */
+	public function init()
+	{
+		echo "<p>init</p>";
+	}
+	
+	/**
+	 * @protected
+	 */
+	public function authenticate()
+	{
+		echo "<p>authenticate</p>";
+	}
+	
+	/**
+	 * @before init, authenticate, init
+	 * @after notify
+	 */
 	public function index()
 	{
-		echo "Home x)";
+		echo "<p>here x)</p>";	
+	}
+	
+	/**
+	 * @protected
+	 */
+	public function notify()
+	{
+		echo "<p>notify</p>";
 	}
 }
 

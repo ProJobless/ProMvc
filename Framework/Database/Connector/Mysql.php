@@ -1,0 +1,193 @@
+<?php
+
+namespace Framework\Database\Connector;
+
+
+use Framework\Database\Query\Mysql;
+
+use Framework\Database\Connector;
+
+class Mysql extends Connector {
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_host;
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_username;
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_password;
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_schema;
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_port = "3306";
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_charset = "utf8";
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_engine = "InnoDB";
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_isConnected = false;
+	
+	/**
+	 * Checks if connected to the database
+	 * @return boolean
+	 */
+	protected function _isValidService()
+	{
+		$isEmpty = empty($this->_service);
+		$isInstance = $this->_service instanceof \MySQLi;
+		
+		if ($this->isConnected && $isInstance && !$isEmpty)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Connects to the database
+	 * @return \Framework\Database\Connector\Mysql
+	 */
+	public function connect()
+	{
+		if (!$this->_isValidService())
+		{
+			$this->_service = new \MySQLi(
+				$this->_host,
+				$this->_username,
+				$this->_password,
+				$this->_schema,
+				$this->_port		
+			);
+			
+			if ($this->_service->connect_error)
+			{
+				throw new \Exception("Unable to connect to service");
+			}
+			
+			$this->isConnected = true;
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * Disconnects from the database
+	 * @return \Framework\Database\Connector\Mysql
+	 */
+	public function disconnect()
+	{
+		if ($this->_isValidService())
+		{
+			$this->isConnected = false;
+			$this->_service->close();
+		}
+		
+		return $this;	
+	}
+	
+	/**
+	 * Returns a corresponding query instance
+	 * @return \Framework\Database\Query\Mysql
+	 */
+	public function query()
+	{
+		return new Mysql(array(
+			"connector" => $this
+		));
+	}
+	
+	/**
+	 * Executes the provided SQL statement
+	 * @param string $sql
+	 */
+	public function execute($sql)
+	{
+		if (!$this->_isValidService())
+		{
+			throw new \Exception("Not connected to a valid service");
+		}
+		
+		return $this->_service->query($sql);
+	}
+	
+	/**
+	 * Escapes the provided value to make it safe for queries
+	 * @param string $value
+	 * @throws \Exception
+	 * @return string
+	 */
+	public function escape($value)
+	{
+		if (!$this->_isValidService())
+		{
+			throw new \Exception("Not connected to a valid service");
+		}
+		
+		return $this->_service->real_escape_string($value);
+	}
+	
+	/**
+	 * Returns the ID of the last row to be inserted
+	 * @throws \Exception
+	 */
+	public function getLastInsertId()
+	{
+		if (!$this->_isValidService())
+		{
+			throw new \Exception("Not connected to a valid service");
+		}
+		
+		return $this->_service->insert_id;
+	}
+	
+	/**
+	 * Returns the number of rows affected by the last SQL query executed
+	 * @throws \Exception
+	 */
+	public function getAffectedRow()
+	{
+		if (!$this->_isValidService())
+		{
+			throw new \Exception("Not connected to a valid service");
+		}
+		
+		return $this->_service->affected_rows; 
+	}
+	
+	/**
+	 * Returns the last error of occur
+	 * @throws \Exception
+	 */
+	public function getLastError()
+	{
+		if (!$this->_isValidService())
+		{
+			throw new \Exception("Not connected to a valid service");
+		}
+	
+		return $this->_service->error;
+	}
+}
