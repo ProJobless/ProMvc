@@ -18,5 +18,3 @@ class Driver extends Base {
 		return new \Exception("{$method} method not implemented");
 	}
 }
-
-?>

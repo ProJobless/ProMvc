@@ -51,5 +51,3 @@ class Simple extends Route {
 		return false;
 	}
 }
-
-?>

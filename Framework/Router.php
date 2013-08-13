@@ -83,10 +83,12 @@ class Router extends Base {
 			}
 		}
 		$parts = explode("/", trim($url, "/"));
-		
 		if (sizeof($parts) > 0)
 		{
-			$controller = $parts[0];
+			if (sizeof($parts) == 1 && $parts[0] != "") 
+			{
+				$controller = $parts[0];
+			}
 			
 			if (sizeof($parts) >= 2)
 			{
@@ -106,9 +108,10 @@ class Router extends Base {
 		$this->_action = $action;
 		
 		try 
-		{
-			
-			$instance = new $name(array(
+		{	
+			$name = ($name == '') ? 'Home' : $name;
+			$controller = CONTROLLER . $name;
+			$instance = new $controller(array(
 					"parameters" => $parameters
 			));
 			Registry::set("controller", $instance);
@@ -170,5 +173,3 @@ class Router extends Base {
 	}
 
 }
-
-?>

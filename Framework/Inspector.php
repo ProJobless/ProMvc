@@ -174,5 +174,3 @@ class Inspector {
 		return $_meta["actions"][$method];
 	}
 }
-
-?>

@@ -9,5 +9,3 @@ class Controller extends Base {
 	 */
 	protected $_parameters;
 }
-
-?>

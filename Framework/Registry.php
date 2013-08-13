@@ -47,5 +47,3 @@ class Registry {
 		return $list;
 	}
 }
-
-?>

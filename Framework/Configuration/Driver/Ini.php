@@ -60,5 +60,3 @@ class Ini extends Configuration\Driver {
 		return $config;
 	}
 }
-
-?>

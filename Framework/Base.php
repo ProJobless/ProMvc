@@ -125,5 +125,3 @@ class Base {
 		return new \Exception("{$method} method not implemented");
 	}
 }
-
-?>
