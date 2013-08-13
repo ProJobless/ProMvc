@@ -19,10 +19,11 @@ class Ini extends Configuration\Driver {
 		{
 			$config = array();
 			ob_start();
-				include ("{$path}.ini");
+				include (APP_PATH . DS . "application" . DS . "{$path}.ini");
 				$string = ob_get_contents();
 			ob_end_clean();
 			
+			//var_dump($string);
 			$pairs = parse_ini_string($string);
 			
 			if ($pairs == false)

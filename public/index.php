@@ -19,7 +19,9 @@ Framework\Registry::set("configuration", $configuration->initialize());
 
 // 5
 
-// 6
+// 6 load and initialize the Session class
+$session = new Framework\Session();
+Framework\Registry::set("session", $session->initialize());
 
 // 7. load the Router class and provide the url+extension
 $router = new Framework\Router(array(
