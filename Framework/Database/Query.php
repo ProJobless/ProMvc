@@ -336,7 +336,7 @@ class Query extends Base {
 	{
 		$sql = $this->_buildDelete();
 		$result = $this->_connector->execute($sql);
-		// pdo query
+		
 		if ($result === false)
 		{
 			throw new \Exception("error");
