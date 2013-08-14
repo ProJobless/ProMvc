@@ -87,6 +87,29 @@ class Index extends Controller {
 	
 		$db->sync($user);
 		
+		$elijah = new User(array(
+				
+				"connector" => $db,
+				"first" => "Bobby",
+				"last" => "Johnson",
+				"email" => "bobby@mvc.com",
+				"password" => "password",
+				"live" => true,
+				"deleted" => false,
+				"created" => date("Y-m-d H:i:s"),
+				"modified" => date("Y-m-d H:i:s")
+				
+				));
+		
+		$elijah->save();
+		
+		$all = User::all(array(
+				"last = ?" => "Johnson"
+				));
+		var_dump($all[0]->first);
+		
+		$elijah->delete();
+		
 		echo "<p>here x)</p>";	
 	}
 	
