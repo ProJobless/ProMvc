@@ -26,7 +26,7 @@ $database = new Framework\Database(array(
 		"port"=>"3306"
 	)
 ));
-Framework\Registry::set("database", $database->initialize());
+Framework\Registry::set("database", $database->initialize()->connect());
 
 // 5
 

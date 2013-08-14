@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\models\User;
+
 use Framework\Registry;
 
 use Framework\Controller;
@@ -31,7 +33,6 @@ class Index extends Controller {
 	{
 		$db = Registry::get("database");
 		
-		$db->connect();
 		$all = $db->query()
 			->from("users", array(
 					"first_name",
@@ -80,7 +81,11 @@ class Index extends Controller {
 		echo "There are $count rows ";
 		
 		
-		
+		$user = new User(array(
+				"connector" => $db
+				));
+	
+		$db->sync($user);
 		
 		echo "<p>here x)</p>";	
 	}
