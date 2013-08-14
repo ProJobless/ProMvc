@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Database\Connector\Pdo;
+
 use Framework\Database\Connector\Mysql;
 
 class Database extends Base {
@@ -34,6 +36,9 @@ class Database extends Base {
 		{
 			case "mysql":
 				return new Mysql($this->options);
+				break;
+			case "pdo":
+				return new Pdo($this->options);
 				break;
 			default:
 				throw new \Exception("Invalid type");

@@ -17,7 +17,7 @@ Framework\Registry::set("configuration", $configuration->initialize());
 
 // 4. load and initialize the Database class - does not connect
 $database = new Framework\Database(array(
-	"type" => "mysql",
+	"type" => "pdo",
 	"options" => array(
 		"host"=>"localhost",
 		"username"=>"root",

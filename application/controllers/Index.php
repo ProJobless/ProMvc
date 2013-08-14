@@ -31,29 +31,30 @@ class Index extends Controller {
 	{
 		$db = Registry::get("database");
 		
-		//var_dump($db);
-		
 		$db->connect();
 		$all = $db->query()
 			->from("users", array(
 					"first_name",
 					"last_name" => "surname"
 					))
-			->join("points", "points.id=users.id", array(
-					"points" => "rewards"
+					->join("points", "points.id=users.id", array(
+							"points" => "rewards"
 					))
-			->all()
-		;
+			->all();
 		
+		var_dump($all);
+		
+		/**
 		/*$id = $db->query()
 			->from("users")
 			->save(array(
-					"first_name" => "Liz",
+					"first_name" => "Philip",
 					"last_name" => "Pitt"
 					));
 			
 		echo "insert de id : $id";
 		*/
+		
 		
 		$affected = $db->query()
 		->from("users")
@@ -62,12 +63,15 @@ class Index extends Controller {
 		
 		echo "suppression de $affected rows ";
 		
+		
+		
 		$db->query()
 		->from("users")
 		->where("first_name=?", "Patrick")
 		->save(array(
 				"modified" => date("Y-m-d H:i:s")
 				));
+		
 		
 		$count = $db->query()
 		->from("users")
@@ -76,7 +80,8 @@ class Index extends Controller {
 		echo "There are $count rows ";
 		
 		
-		var_dump($all);
+		
+		
 		echo "<p>here x)</p>";	
 	}
 	

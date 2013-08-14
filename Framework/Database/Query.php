@@ -53,6 +53,8 @@ class Query extends Base {
 	 */
 	protected $_where = array();
 	
+	
+	
 	protected function _getExceptionForImplementation($method)
 	{
 		throw new \Exception("{$method} method not implemented");
@@ -334,7 +336,7 @@ class Query extends Base {
 	{
 		$sql = $this->_buildDelete();
 		$result = $this->_connector->execute($sql);
-
+		// pdo query
 		if ($result === false)
 		{
 			throw new \Exception("error");
@@ -390,6 +392,9 @@ class Query extends Base {
 		{
 			$this->_offset=$offset;
 		}
+		
+		if (is_object($row))
+			return $row->rows;
 		
 		return $row["rows"];
 	}
