@@ -186,10 +186,10 @@ class Query extends Base {
 			{
 				if (is_string($field))
 				{
-					$field[] = "{$field} AS {$alias}";
+					$fields[] = "{$field} AS {$alias}";
 				}
 				else {
-					$field[] = $alias;
+					$fields[] = $alias;
 				}
 			}
 		}
@@ -236,7 +236,7 @@ class Query extends Base {
 	{
 		$fields = array();
 		$values = array();
-		$template = "INSERT INTO '%s' ('%s') VALUES (%s)";
+		$template = "INSERT INTO `%s` (`%s`) VALUES (%s)";
 		
 		foreach ($data as $field => $value)
 		{
@@ -244,7 +244,7 @@ class Query extends Base {
 			$values[] = $this->_quote($value);
 		}
 		
-		$fields = join("', '", $fields);
+		$fields = join("`, `", $fields);
 		$values = join(", ", $values);
 		
 		return sprintf($template, $this->from, $fields, $values);
@@ -304,6 +304,7 @@ class Query extends Base {
 	
 	public function save($data)
 	{
+		
 		$isInsert=sizeof($this->_where) == 0;
 		
 		if ($isInsert)
@@ -393,25 +394,6 @@ class Query extends Base {
 		return $row["rows"];
 	}
 	
-	public function all()
-	{
-		$sql = $this->_buildSelect();
-		$result = $this->_connector->execute($sql);
-		
-		if ($result === false)
-		{
-			$error = $this->_connector->lastError;
-			throw new \Exception("There was an error with your SQL query : {$error}");
-		}
-		
-		$rows = array();
-		
-		for ($i=0; $i<$result->num_rows;$i++)
-		{
-			$rows[]=$result->fetch_array(MYSQLI_ASSOC);
-		}
-		
-		return $rows;
-	}
+	
 	
 }

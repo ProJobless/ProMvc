@@ -3,11 +3,12 @@
 namespace Framework\Database\Connector;
 
 
-use Framework\Database\Query\Mysql;
 
 use Framework\Database\Connector;
 
 class Mysql extends Connector {
+	
+	protected $_service;
 	
 	/**
 	 * @readwrite
@@ -116,7 +117,7 @@ class Mysql extends Connector {
 	 */
 	public function query()
 	{
-		return new Mysql(array(
+		return new \Framework\Database\Query\Mysql(array(
 			"connector" => $this
 		));
 	}
@@ -169,7 +170,7 @@ class Mysql extends Connector {
 	 * Returns the number of rows affected by the last SQL query executed
 	 * @throws \Exception
 	 */
-	public function getAffectedRow()
+	public function getAffectedRows()
 	{
 		if (!$this->_isValidService())
 		{

@@ -17,16 +17,16 @@ Framework\Registry::set("configuration", $configuration->initialize());
 
 // 4. load and initialize the Database class - does not connect
 $database = new Framework\Database(array(
-	"type", "mysql",
+	"type" => "mysql",
 	"options" => array(
 		"host"=>"localhost",
-		"username"=>"admin",
+		"username"=>"root",
 		"password"=>"",
 		"schema"=>"prophpmvc",
 		"port"=>"3306"
 	)
 ));
-Framework\Registry::set("database", $database);
+Framework\Registry::set("database", $database->initialize());
 
 // 5
 

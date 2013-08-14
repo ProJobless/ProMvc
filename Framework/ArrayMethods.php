@@ -73,5 +73,11 @@ class ArrayMethods {
 		
 		return $return;
 	}
+	
+	public static function first($array)
+	{
+		$values = array_values($array);
+		return array_shift($values);
+	}
 }
 

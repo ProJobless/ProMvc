@@ -54,4 +54,6 @@ class StringMethods {
 		return preg_split(self::_normalize($pattern), $string, $limit, $flags);
 	}
 	
+	// page 84
+	
 }

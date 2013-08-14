@@ -41,15 +41,7 @@ class Database extends Base {
 		}
 	}
 	
-	public function set0()
-	{
-		echo "method special";
-	}
 	
-	public function set1()
-	{
-		echo "method special";
-	}
 }
 
 ?>
