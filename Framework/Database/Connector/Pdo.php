@@ -193,7 +193,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 			throw new \Exception("Not connected to a valid service");
 		}
 	
-		return $this->_service->error;
+		return $this->_statement->errorInfo(); 
 	}
 	
 	/**
