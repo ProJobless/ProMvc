@@ -79,5 +79,11 @@ class ArrayMethods {
 		$values = array_values($array);
 		return array_shift($values);
 	}
+	
+	public static function last($array)
+	{
+		$values = array_values($array);
+		return array_pop($values);
+	}
 }
 

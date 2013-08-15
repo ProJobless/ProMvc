@@ -92,6 +92,7 @@ class Router extends Base {
 			
 			if (sizeof($parts) >= 2)
 			{
+				$controller = $parts[0];
 				$action = $parts[1];
 				$parameters = array_slice($parts, 2);
 			}
