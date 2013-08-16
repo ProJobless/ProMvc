@@ -44,24 +44,7 @@ class Index extends Controller {
 		
 		$view = $this->getActionView();
 		
-		$configuration = Registry::get("configuration");
-		if ($configuration)
-		{
-			$configuration = $configuration->initialize();
-			$parsed = $configuration->parse("configuration/configuration");
 		
-			if (!empty($parsed->config->component->header->title))
-			{
-				$title = $parsed->config->component->header->title;
-				
-				$cHeader = new Header(array(				
-					"title" => $title
-				));
-				$view->set("header", $cHeader);
-			}
-		}
-		
-		$layout->set("header", $cHeader);
 		
 		$bloc = new Bloc();
 		$bloc->addElement($gLine);

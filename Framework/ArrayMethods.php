@@ -58,7 +58,7 @@ class ArrayMethods {
 	 * @param array $return
 	 * @return array
 	 */
-	public function flatten($array, $return = array())
+	public static function flatten($array, $return = array())
 	{
 		foreach ($array as $key => $value)
 		{

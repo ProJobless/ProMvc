@@ -2,11 +2,13 @@
 
 namespace application\controllers;
 
+use Framework\Controller\Shared\Controller;
+
 use application\models\User;
 
 use Framework\RequestMethods;
 
-class Users extends \Framework\Controller {
+class Users extends Controller {
 	
 	public function index()
 	{
@@ -19,8 +21,20 @@ class Users extends \Framework\Controller {
 		//$this->render();
 	} 
 	
+	public function login()
+	{
+		echo "login !";		
+	}
+	
+	public function friend()
+	{
+		echo "into friend action";
+	}
+	
 	public function register()
 	{
+		
+		var_dump("action register");
 		
 		if (RequestMethods::post("register"))
 		{

@@ -40,6 +40,10 @@ $router = new Framework\Router(array(
 ));
 Framework\Registry::set("router", $router);
 
+// include custom routes
+
+include("routes.php");
+
 // 8. dispach the current request
 try {
 	$router->dispatch();
@@ -53,25 +57,3 @@ unset($configuration);
 unset($database);
 unset($router);
 
-/*
-
-try {
-	
-	// Autoloader
-	require "../Core/Autoload.php";
-	spl_autoload_register(array('autoloader', 'autoload'));
-	
-	$router = new Router();
-	$router->addRoute(new Simple(array(
-			"pattern" => ":name/profile",
-			"controller" => "home",
-			"action" => "index"
-			)));
-	$router->url = "bader/profile";
-	$router->dispatch();
-	
-	
-} catch (Exception $e) {
-	echo $e->getMessage();
-}
-*/
