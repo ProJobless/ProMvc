@@ -54,21 +54,6 @@ unset($database);
 unset($router);
 
 /*
-use Framework\Router\Route\Simple;
-
-use Framework\Router;
-
-use Framework\Registry;
-
-use Framework\Configuration;
-
-use Framework\Configuration\Driver\Ini;
-
-use Framework\Inspector;
-
-use Framework\StringMethods;
-
-use Framework\Base;
 
 try {
 	

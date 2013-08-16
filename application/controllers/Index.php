@@ -2,6 +2,12 @@
 
 namespace application\controllers;
 
+use application\components\Bloc\Bloc;
+
+use application\components\Graph;
+
+use application\components\header\Header;
+
 use application\models\User;
 
 use Framework\Registry;
@@ -10,7 +16,7 @@ use Framework\Controller;
 
 class Index extends Controller {
 	
-/**
+	/**
 	 * @once
 	 * @protected
 	 */
@@ -31,6 +37,37 @@ class Index extends Controller {
 	 */
 	public function index()
 	{
+		$layout = $this->getLayoutView();
+		
+		$g = new Graph(array("type" => "line"));
+		$gLine = $g->initialize();
+		
+		$view = $this->getActionView();
+		
+		$configuration = Registry::get("configuration");
+		if ($configuration)
+		{
+			$configuration = $configuration->initialize();
+			$parsed = $configuration->parse("configuration/configuration");
+		
+			if (!empty($parsed->config->component->header->title))
+			{
+				$title = $parsed->config->component->header->title;
+				
+				$cHeader = new Header(array(				
+					"title" => $title
+				));
+				$view->set("header", $cHeader);
+			}
+		}
+		
+		$layout->set("header", $cHeader);
+		
+		$bloc = new Bloc();
+		$bloc->addElement($gLine);
+		
+		var_dump($bloc);
+		
 		$db = Registry::get("database");
 		
 		$all = $db->query()
