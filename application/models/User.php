@@ -2,9 +2,7 @@
 
 namespace application\models;
 
-use Framework\Model;
-
-class User extends Model {
+class User extends \Framework\Shared\Model {
 	
 	/**
 	 * @column

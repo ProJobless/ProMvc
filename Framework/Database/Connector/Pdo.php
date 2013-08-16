@@ -53,6 +53,17 @@ class Pdo extends Connector {
 	 */
 	protected $_statement;
 	
+	
+	public function __sleep()
+	{
+		
+	}
+	
+	public function __wakeup()
+	{
+		
+	}
+	
 	/**
 	 * Checks if connected to the database
 	 * @return boolean

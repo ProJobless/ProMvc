@@ -19,6 +19,11 @@ $routes = array(
 				"action" => "logout"
 		),
 		array(
+				"pattern" => "profile",
+				"controller" => "users",
+				"action" => "profile"
+		),
+		array(
 				// TODO : revoir matche avec parametres
 				"pattern" => "friend/?",
 				"controller" => "users",

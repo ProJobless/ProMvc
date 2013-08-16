@@ -42,7 +42,7 @@ class Controller extends Base {
 	/**
 	 * @readwrite
 	 */
-	protected $_defaultExtension = "phtml";
+	protected $_defaultExtension = "tpl";
 	
 	/**
 	 * @readwrite
