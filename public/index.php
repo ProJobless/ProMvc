@@ -54,6 +54,7 @@ try {
 	// 9. unset global variables
 	unset($configuration);
 	unset($database);
+	unset($session);
 	unset($router);
 }
 catch (Exception $e)
