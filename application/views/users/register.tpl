@@ -3,42 +3,34 @@
 Your account has been created!
 {/if}
 {else}
-<form method="post" action="/users/register">
+<form method="post">
 <ol>
 <li>
 <label>
 First name:
 <input type="text" name="first" />
-{if isset($first_error)}
-{echo $first_error}
-{/if}
+{echo \Framework\Shared\Markup::errors($errors, "first")}
 </label>
 </li>
 <li>
 <label>
 Last name:
 <input type="text" name="last" />
-{if isset($last_error)}
-{echo $last_error}
-{/if}
+{echo \Framework\Shared\Markup::errors($errors, "last")}
 </label>
 </li>
 <li>
 <label>
 Email:
 <input type="text" name="email" />
-{if isset($email_error)}
-{echo $email_error}
-{/if}
+{echo \Framework\Shared\Markup::errors($errors, "email")}
 </label>
 </li>
 <li>
 <label>
 Password:
 <input type="password" name="password" />
-{if isset($password_error)}
-{echo $password_error}
-{/if}
+{echo \Framework\Shared\Markup::errors($errors, "password")}
 </label>
 </li>
 <li>

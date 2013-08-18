@@ -94,48 +94,28 @@ class Users extends \Framework\Shared\Controller {
 	
 	public function register()
 	{
+		$view =  $this-> getActionView();
+		
 		if (RequestMethods::post("register"))
 		{
-			$first = RequestMethods::post("first");
-			$last = RequestMethods::post("last");
-			$email = RequestMethods::post("email");
-			$password = RequestMethods::post("password");
-			$view = $this-> getActionView();
-			$error = false;
-			if (empty($first))
+			$user = new User(array(
+				"first" => RequestMethods::post("first"),
+				"last" => RequestMethods::post("last"),
+				"email" => RequestMethods::post("email"),
+				"password" => RequestMethods::post("password")
+			));
+			
+			if ($user->validate())
 			{
-				$view-> set("first_error", "First name not provided");
-				$error = true;
-			}
-			if (empty($last))
-			{
-				$view-> set("last_error", "Last name not provided");
-				$error = true;
-			}
-			if (empty($email))
-			{
-				$view-> set("email_error", "Email not provided");
-				$error = true;
-			}
-			if (empty($password))
-			{
-				$view-> set("password_error", "Password not provided");
-				$error = true;
+				$user->save();
+				$view->set("success", true);
 			}
 			
-			if (!$error)
-			{
-				$user = new User(array(
-						"first" => $first,
-						"last" => $last,
-						"email" => $email,
-						"password" => $password
-				));
-				$user-> save();
-				$view-> set("success", true);
-				
-			}
-			
+			$view->set("errors", $user->getErrors());
+		}
+		else 
+		{
+			$view->set("errors", array());
 		}
 		
 	}
@@ -177,5 +157,45 @@ class Users extends \Framework\Shared\Controller {
 			-> set("limit", $limit)        
 			-> set("count", $count)        
 			-> set("users", $users);
+	}
+	
+	public function settings()
+	{
+
+		$view = $this->getActionView();
+		$user = $this->getUser();
+		
+		if (RequestMethods::post("update"))
+		{
+			$user = new User(array(
+				"first" => RequestMethods::post("first", $user->first),
+				"last" => RequestMethods::post("last", $user->last),
+				"email" => RequestMethods::post("email", $user->email),
+				"password" => RequestMethods::post("password", $user->password)
+			));
+			
+			if ($user->validate())
+			{
+				$user->save();
+				$view->set("success", true);
+			}
+			
+			$view->set("errors", $user->getErrors());
+		}
+		else
+		{
+			$view->set("errors", array());
+		}
+	}
+	
+	public function logout()
+	{
+		$this->setUser(false);
+		
+		$session = Registry::get("session");
+		$session->erase("user");
+		
+		header("Location: /login");
+		exit();
 	}
 }
