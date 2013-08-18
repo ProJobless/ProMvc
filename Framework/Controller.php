@@ -127,7 +127,7 @@ class Controller extends Base {
 		}
 		catch (\Exception $e)
 		{
-			throw new \Exception("Invalid layout/template syntax");
+			throw new \Exception("Invalid layout/template syntax" . $e->getMessage());
 		}
 	}
 	

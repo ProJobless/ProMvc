@@ -24,6 +24,11 @@ $routes = array(
 				"action" => "profile"
 		),
 		array(
+				"pattern" => "search",
+				"controller" => "users",
+				"action" => "search"
+		),
+		array(
 				// TODO : revoir matche avec parametres
 				"pattern" => "friend/?",
 				"controller" => "users",

@@ -79,7 +79,7 @@ class Standard extends Implementation {
 		$element = $tree["arguments"]["element"];
 		return $this-> _loop(
 				$tree,
-				"foreach ({$object} as {$element}_i = > {$element}) {
+				"foreach ({$object} as {$element}_i => {$element}) {
 					{$content}
 				}"
 		);
