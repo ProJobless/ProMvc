@@ -4,6 +4,8 @@ namespace Framework\Database\Connector;
 
 use Framework\Database\Connector;
 
+use \Framework\Database\Exception as Exception;
+
 class Pdo extends Connector {
 	
 	protected $_service;
@@ -83,7 +85,7 @@ class Pdo extends Connector {
 	
 	/**
 	 * Connects to the database
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 * @return \Framework\Database\Connector\Pdo
 	 */
 	public function connect()
@@ -98,7 +100,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 				
 			if (!$this->_service)
 			{
-				throw new \Exception("Unable to connect to service");
+				throw new Exception\Service("Unable to connect to service");
 			}
 				
 			$this->isConnected = true;
@@ -141,7 +143,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		$this->_statement = $this->_service->query($sql);
@@ -152,14 +154,14 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	/**
 	 * Escapes the provided value to make it safe for queries
 	 * @param string $value
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 * @return string
 	 */
 	public function escape($value)
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 	
 		return $value;
@@ -167,13 +169,13 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	
 	/**
 	 * Returns the ID of the last row to be inserted
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getLastInsertId()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 	
 		return $this->_service->lastInsertId();
@@ -181,13 +183,13 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	
 	/**
 	 * Returns the number of rows affected by the last SQL query executed
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getAffectedRows()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		return $this->_statement->rowCount();
@@ -195,13 +197,13 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	
 	/**
 	 * Returns the last error of occur
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getLastError()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 	
 		return $this->_statement->errorInfo(); 
@@ -211,7 +213,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 	 * Converts the class/properties into a valid SQL query,
 	 * and ultimately into a physical database table
 	 * @param unknown_type $model
-	 * @throws \Exception
+	 * @throws Exception\Sql
 	 * @return \Framework\Database\Connector\Mysql
 	 */
 	public function sync($model)
@@ -296,7 +298,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 		if ($result === false)
 		{
 			$error = $this->lastError;
-			throw new \Exception("There was an error in the query: {$error}");
+			throw new Exception\Sql("There was an error in the query: {$error}");
 		}
 		
 		$result = $this->execute($sql);
@@ -304,7 +306,7 @@ array(\PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8')
 		if ($result === false)
 		{
 			$error = $this->lastError;
-			throw new \Exception("There was an error in the query: {$error}");
+			throw new Exception\Sql("There was an error in the query: {$error}");
 		}
 			
 		return $this;

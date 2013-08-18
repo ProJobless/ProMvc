@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Session\Exception as Exception;
+
 use Framework\Session\Driver\Server;
 
 class Session extends Base {
@@ -18,12 +20,12 @@ class Session extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} not implemented");
+		return new Exception\Implementation("{$method} not implemented");
 	}
 	
 	protected function _getExceptionForArgument()
 	{
-		return new \Exception("Invalid Argument");
+		return new Exception\Argument("Invalid Argument");
 	}
 	
 	public function initialize()
@@ -54,7 +56,7 @@ class Session extends Base {
 		
 		if (empty($type))
 		{
-			throw new \Exception("Invalid type");
+			throw new Exception\Argument("Invalid type");
 		}
 		
 		switch ($type)
@@ -63,7 +65,7 @@ class Session extends Base {
 				return new Server($this->getOptions());
 				break;
 			default:
-				throw new \Exception("Invalid type");
+				throw new Exception\Argument("Invalid type");
 				break;
 		}
 	}

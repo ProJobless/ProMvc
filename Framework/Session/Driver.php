@@ -2,6 +2,8 @@
 
 namespace Framework\Session;
 
+use Framework\Session\Exception as Exception;
+
 use Framework\Base as Base;
 
 class Driver extends Base {
@@ -13,6 +15,6 @@ class Driver extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 }

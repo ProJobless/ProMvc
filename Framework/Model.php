@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Model\Exception as Exception;
+
 class Model extends Base {
 	
 	/**
@@ -33,7 +35,7 @@ class Model extends Base {
 	
 	public function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	public function __construct($options = array())
@@ -59,7 +61,7 @@ class Model extends Base {
 			$database = Registry::get("database");
 			if (!$database)
 			{
-				throw new \Exception("No connector availible");
+				throw new Exception\Connector("No connector availible");
 			}
 			$this->_connector = $database->initialize();
 		}
@@ -105,7 +107,7 @@ class Model extends Base {
 					
 					if (!in_array($type, $types))
 					{
-						throw new \Exception("{$type} is not a valid type");
+						throw new Exception\Type("{$type} is not a valid type");
 					}
 							
 					if ($primary)
@@ -130,7 +132,7 @@ class Model extends Base {
 			
 			if ($primaries !== 1)
 			{
-				throw new \Exception("{$class} must have exactly one @primary column");
+				throw new Exception\Primary("{$class} must have exactly one @primary column");
 			}
 					
 			$this->_columns = $columns;
@@ -199,7 +201,7 @@ class Model extends Base {
 				
 			if ($previous == null)
 			{
-				throw new \Exception("Primary key value invalid");
+				throw new Exception\Primary("Primary key value invalid");
 			}
 				
 			foreach ($previous as $key => $value)

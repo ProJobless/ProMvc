@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Router\Exception as Exception;
+
 class Router extends Base {
 	
 	/**
@@ -28,7 +30,7 @@ class Router extends Base {
 	
 	public function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	public function addRoute($route)
@@ -119,7 +121,7 @@ class Router extends Base {
 		}
 		catch (\Exception $e)
 		{
-			throw new \Exception("Controller {$name} not found");
+			throw new Exception\Controller("Controller {$name} not found");
 		}
 		
 		if (!method_exists($instance, $action))
@@ -127,7 +129,7 @@ class Router extends Base {
 			$instance->willRenderLayoutView = false;
 			$instance->willRenderActionView = false;
 			
-			throw new \Exception("Action {$action} not found");
+			throw new Exception\Action("Action {$action} not found");
 		}
 		
 		$inspector = new Inspector($instance);
@@ -135,7 +137,7 @@ class Router extends Base {
 		
 		if (!empty($methodMeta["@protected"]) || !empty($methodMeta["@private"]))
 		{
-			throw new \Exception("Action {$action} not found");
+			throw new Exception\Action("Action {$action} not found");
 		}
 		
 		$hooks = function($meta, $type) use ($inspector, $instance)

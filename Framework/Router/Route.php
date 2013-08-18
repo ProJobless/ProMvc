@@ -2,6 +2,8 @@
 
 namespace Framework\Router;
 
+use Framework\Router\Exception as Exception;
+
 use Framework\Base as Base;
 
 class Route extends Base {
@@ -28,6 +30,6 @@ class Route extends Base {
 	
 	public function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 }

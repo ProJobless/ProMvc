@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use \Framework\Configuration\Exception as Exception;
+
 class Configuration extends Base {
 	
 	/**
@@ -16,14 +18,14 @@ class Configuration extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	public function initialize()
 	{
 		if (!$this->type)
 		{
-			throw new \Exception("Invalid type");
+			throw new Exception\Argument("Invalid type");
 		}
 		
 		switch ($this->type)
@@ -32,7 +34,7 @@ class Configuration extends Base {
 				return new Configuration\Driver\Ini($this->options);
 				break;
 			default:
-				throw new \Exception("Invalid type");
+				throw new Exception\Argument("Invalid type");
 				break;
 		}
 	}

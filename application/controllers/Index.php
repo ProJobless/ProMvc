@@ -12,9 +12,8 @@ use application\models\User;
 
 use Framework\Registry;
 
-use Framework\Controller;
 
-class Index extends Controller {
+class Index extends \Framework\Shared\Controller {
 	
 	/**
 	 * @once

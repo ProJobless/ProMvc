@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Database\Exception as Exception;
+
 use Framework\Database\Connector\Pdo;
 
 use Framework\Database\Connector\Mysql;
@@ -22,14 +24,14 @@ class Database extends Base {
 	{
 		var_dump($method);
 		
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	public function initialize()
 	{
 		if (!$this->type)
 		{
-			throw new \Exception("Invalid type");
+			throw new Exception\Argument("Invalid type");
 		}
 		
 		switch ($this->type)
@@ -41,7 +43,7 @@ class Database extends Base {
 				return new Pdo($this->options);
 				break;
 			default:
-				throw new \Exception("Invalid type");
+				throw new Exception\Argument("Invalid type");
 				break;
 		}
 	}

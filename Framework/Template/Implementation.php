@@ -2,6 +2,8 @@
 
 namespace Framework\Template;
 
+use Framework\Template\Exception as Exception;
+
 use Framework\StringMethods;
 
 class Implementation extends \Framework\Base {
@@ -30,7 +32,7 @@ class Implementation extends \Framework\Base {
 		}
 		catch (\Exception $e)
 		{
-			throw new \Exception("$e");
+			throw new Exception\Implementation();
 		}
 	}
 	

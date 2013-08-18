@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\Template\Exception as Exception;
+
 class Template extends Base {
 	
 	/**
@@ -31,7 +33,7 @@ class Template extends Base {
 	
 	public function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	protected function _arguments($source, $expression)
@@ -276,7 +278,7 @@ class Template extends Base {
 	{
 		if (!is_a($this->_implementation, "Framework\Template\Implementation"))
 		{
-			throw new \Exception("_implementation is not Framework\Template\Implementation Object");
+			throw new Exception\Implementation();
 		}
 		
 		$array = $this->_array($template);
@@ -291,14 +293,14 @@ class Template extends Base {
 	/**
 	 * 
 	 * @param array $data
-	 * @throws \Exception
+	 * @throws Exception\Parser
 	 * @return string
 	 */
 	public function process($data = array())
 	{
 		if ($this->_function == null)
 		{
-			throw new \Exception("_function == null");
+			throw new Exception\Parser("_function == null");
 		}
 		
 		try
@@ -308,7 +310,7 @@ class Template extends Base {
 		}
 		catch (\Exception $e)
 		{
-			throw new \Exception($e->getMessage());
+			throw new Exception\Parser($e);
 		}
 	}
 }

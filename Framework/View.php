@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use Framework\View\Exception as Exception;
+
 class View extends Base {
 	
 	/**
@@ -18,12 +20,12 @@ class View extends Base {
 	
 	public function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	public function _getExceptionForArgument()
 	{
-		return new \Exception("Invalid argument");
+		return new Exception\Argument("Invalid argument");
 	}
 	
 	public function __construct($options = array())
@@ -62,7 +64,7 @@ class View extends Base {
 	{
 		if (!is_string($key) && !is_numeric($key))
 		{
-			throw new \Exception("Key must be a string or a number");
+			throw new Exception\Data("Key must be a string or a number");
 		}
 		
 		$this->_data[$key] = $value;

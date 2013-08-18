@@ -2,6 +2,8 @@
 
 namespace Framework\Shared;
 
+use Framework\Model\Exception as Exception;
+
 use Framework\StringMethods;
 
 class Model extends \Framework\Model {
@@ -138,7 +140,7 @@ class Model extends \Framework\Model {
 						
 					if (!isset($defined[$function]))
 					{
-						throw new \Exception("The {$function} validator is not defined");
+						throw new Exception\Validation("The {$function} validator is not defined");
 					}
 	
 					$template = $defined[$function];

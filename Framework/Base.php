@@ -2,6 +2,8 @@
 
 namespace Framework;
 
+use \Framework\Core\Exception as Exception;
+
 /**
  * General structure of all classes
  * @author sbo
@@ -35,7 +37,7 @@ class Base {
 		// checking to see that the inspector is set
 		if (empty($this->_inspector))
 		{
-			throw new \Exception("Call parent::__construct!");
+			throw new Exception\Exception("Call parent::__construct!");
 		}
 		
 		// handling GetProperty() methods
@@ -102,26 +104,26 @@ class Base {
 	
 	protected function _getExceptionForReadonly($property)
 	{
-		return new \Exception("{$property} is read-only");
+		return new Exception\ReadOnly("{$property} is read-only");
 	}
 	
 	protected function _getExceptionForNotnull($property)
 	{
-		return new \Exception("{$property} can not set to null");
+		return new Exception\NotNull("{$property} can not set to null");
 	}
 	
 	protected function _getExceptionForWriteonly($property)
 	{
-		return new \Exception("{$property} is write-only");
+		return new Exception\WriteOnly("{$property} is write-only");
 	}
 	
 	protected function _getExceptionForProperty($property)
 	{
-		return new \Exception("Invalid property");
+		return new Exception\Property("Invalid property");
 	}
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Argument("{$method} method not implemented");
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace Framework\Database;
 
+use Framework\Database\Exception as Exception;
+
 use Framework\Base;
 
 class Connector extends Base {
@@ -13,6 +15,6 @@ class Connector extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 }

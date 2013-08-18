@@ -2,6 +2,10 @@
 
 namespace Framework;
 
+use Framework\Controller\Exception as Exception;
+
+use \Framework\View as View;
+
 class Controller extends Base {
 	
 	/**
@@ -51,12 +55,12 @@ class Controller extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		return new \Exception("{$method} method not implemented");
+		return new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	protected function _getExceptionForArgument()
 	{
-		return new \Exception("Invalid argument");
+		return new Exception\Argument("Invalid argument");
 	}
 	
 	public function __construct($options = array())
@@ -127,7 +131,7 @@ class Controller extends Base {
 		}
 		catch (\Exception $e)
 		{
-			throw new \Exception("Invalid layout/template syntax" . $e->getMessage());
+			throw new View\Exception\Renderer("Invalid layout/template syntax");
 		}
 	}
 	

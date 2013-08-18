@@ -2,6 +2,7 @@
 
 namespace Framework\Configuration\Driver;
 
+use Framework\Configuration\Exception as Exception;
 use Framework\ArrayMethods;
 use Framework\Configuration as Configuration;
 
@@ -11,7 +12,7 @@ class Ini extends Configuration\Driver {
 	{
 		if (empty($path))
 		{
-			throw new \Exception("\$path argument is not valid");
+			throw new Exception\Argument("\$path argument is not valid");
 		}
 		
 		// checks to see if the requested config file has not already been parsed
@@ -28,7 +29,7 @@ class Ini extends Configuration\Driver {
 			
 			if ($pairs == false)
 			{
-				throw new \Exception("Could not parse configuration file");
+				throw new Exception\Syntax("Could not parse configuration file");
 			}
 			
 			foreach ($pairs as $key => $value)

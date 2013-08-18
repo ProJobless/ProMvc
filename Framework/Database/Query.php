@@ -2,6 +2,8 @@
 
 namespace Framework\Database;
 
+use Framework\Database\Exception as Exception;
+
 use Framework\ArrayMethods;
 
 use Framework\Base;
@@ -57,7 +59,7 @@ class Query extends Base {
 	
 	protected function _getExceptionForImplementation($method)
 	{
-		throw new \Exception("{$method} method not implemented");
+		throw new Exception\Implementation("{$method} method not implemented");
 	}
 	
 	protected function _quote($value)
@@ -98,7 +100,7 @@ class Query extends Base {
 	{
 		if (empty($from))
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		$this->_from = $from;
@@ -115,12 +117,12 @@ class Query extends Base {
 	{
 		if (empty($join))
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		if (empty($on))
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		$this->_fields += array($join => $fields);
@@ -133,7 +135,7 @@ class Query extends Base {
 	{
 		if (empty($limit))
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		$this->_limit = $limit;
@@ -146,7 +148,7 @@ class Query extends Base {
 	{
 		if (empty($order))
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		$this->_order = $order;
@@ -161,7 +163,7 @@ class Query extends Base {
 		
 		if (sizeof($arguments) < 1)
 		{
-			throw new \Exception("Invalid argument");
+			throw new Exception\Argument("Invalid argument");
 		}
 		
 		$arguments[0] = preg_replace("#\?#", "%s", $arguments[0]);
@@ -322,7 +324,7 @@ class Query extends Base {
 		
 		if ($result === false)
 		{
-			throw new \Exception("error");
+			throw new Exception\Sql();
 		}
 		
 		if ($isInsert)
@@ -339,7 +341,7 @@ class Query extends Base {
 		
 		if ($result === false)
 		{
-			throw new \Exception("error");
+			throw new Exception\Sql();
 		}
 		
 		return $this->_connector->affectedRows;

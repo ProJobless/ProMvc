@@ -2,7 +2,7 @@
 
 namespace Framework\Database\Connector;
 
-
+use \Framework\Database\Exception as Exception;
 
 use Framework\Database\Connector;
 
@@ -87,7 +87,7 @@ class Mysql extends Connector {
 			
 			if ($this->_service->connect_error)
 			{
-				throw new \Exception("Unable to connect to service");
+				throw new Exception\Service("Unable to connect to service");
 			}
 			
 			$this->isConnected = true;
@@ -130,7 +130,7 @@ class Mysql extends Connector {
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		return $this->_service->query($sql);
@@ -146,7 +146,7 @@ class Mysql extends Connector {
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		return $this->_service->real_escape_string($value);
@@ -154,13 +154,13 @@ class Mysql extends Connector {
 	
 	/**
 	 * Returns the ID of the last row to be inserted
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getLastInsertId()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		return $this->_service->insert_id;
@@ -168,13 +168,13 @@ class Mysql extends Connector {
 	
 	/**
 	 * Returns the number of rows affected by the last SQL query executed
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getAffectedRows()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 		
 		return $this->_service->affected_rows; 
@@ -182,13 +182,13 @@ class Mysql extends Connector {
 	
 	/**
 	 * Returns the last error of occur
-	 * @throws \Exception
+	 * @throws Exception\Service
 	 */
 	public function getLastError()
 	{
 		if (!$this->_isValidService())
 		{
-			throw new \Exception("Not connected to a valid service");
+			throw new Exception\Service("Not connected to a valid service");
 		}
 	
 		return $this->_service->error;
@@ -198,7 +198,7 @@ class Mysql extends Connector {
 	 * Converts the class/properties into a valid SQL query,
 	 * and ultimately into a physical database table
 	 * @param unknown_type $model
-	 * @throws \Exception
+	 * @throws Exception\Sql
 	 * @return \Framework\Database\Connector\Mysql
 	 */
 	public function sync($model)
@@ -283,7 +283,7 @@ class Mysql extends Connector {
 		if ($result === false)
 		{
 			$error = $this->lastError;
-			throw new \Exception("There was an error in the query: {$error}");
+			throw new Exception\Sql("There was an error in the query: {$error}");
 		}
 		
 		$result = $this->execute($sql);
@@ -291,7 +291,7 @@ class Mysql extends Connector {
 		if ($result === false)
 		{
 			$error = $this->lastError;
-			throw new \Exception("There was an error in the query: {$error}");
+			throw new Exception\Sql("There was an error in the query: {$error}");
 		}
 			
 		return $this;
