@@ -34,10 +34,15 @@ $routes = array(
 				"action" => "settings"
 		),
 		array(
-				// TODO : revoir matche avec parametres
 				"pattern" => "friend/?",
 				"controller" => "users",
 				"action" => "friend",
+				"parameters" => array("id")
+		),
+		array(
+				"pattern" => "unfriend/?",
+				"controller" => "users",
+				"action" => "unfriend",
 				"parameters" => array("id")
 		),
 		array(

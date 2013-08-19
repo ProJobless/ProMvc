@@ -62,7 +62,11 @@ Limit:
 </tr>        
 {foreach $row in $users}            
 <tr>                
-<td > {echo $row-> first} {echo $row->last}</td>            
+<td > {echo $row-> first} {echo $row->last}</td>   
+<td>
+	<a href="/users/friend/{echo $row->id}">friend</a>
+	<a href="/users/unfriend/{echo $row->id}">unfriend</a>
+</td>         
 </tr>        
 {/foreach}    
 </table> 

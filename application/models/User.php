@@ -95,5 +95,25 @@ class User extends \Framework\Shared\Model {
 	 */
 	protected $_modified;
 	
-				
+	public function isFriend($id)
+	{
+		$friend = Friend::first(array(
+				"user" => $this->getId(),
+				"friend" => $id
+		));
+		
+		if ($friend)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public static function hasFriend($id, $friend)
+	{
+		$user = new self(array(
+				"id" => $id
+		));
+		return $user->isFriend($friend);
+	}
 }

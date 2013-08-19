@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\models\Friend;
+
 use Framework\Registry;
 
 use application\models\User;
@@ -87,10 +89,6 @@ class Users extends \Framework\Shared\Controller {
 		}
 	}
 	
-	public function friend()
-	{
-		echo "into friend action";
-	}
 	
 	public function register()
 	{
@@ -197,5 +195,62 @@ class Users extends \Framework\Shared\Controller {
 		
 		header("Location: /login");
 		exit();
+	}
+	
+	/**
+	 * @before _secure
+	 */
+	public function friend($id)
+	{
+		// only logued user
+		$user = $this->getUser();
+		
+		$friend = new Friend(array(
+				"user" => $user->id,
+				"friend" => $id
+		));
+		
+		$friend->save();
+		
+		header("Location: /search");
+		exit();
+	}
+	
+	/**
+	 * @before _secure
+	 */
+	public function unfriend($id)
+	{
+		// only logued user
+		$user = $this->getUser();
+		
+		$friend = Friend::first(array(
+				"user" => $user->id,
+				"friend" => $id
+		));
+		
+		if ($friend)
+		{
+			$friend = new Friend(array(
+					"id" => $friend->id
+			));
+			$friend->delete();
+			
+			header("Location: /search");
+			exit();
+		}
+	}
+	
+	/**
+	 * @protected
+	 */
+	public function _secure()
+	{
+		$user = $this->getUser();
+		if (!$user)
+		{
+			header("Location: /login");
+			exit();
+		}
 	}
 }
