@@ -90,16 +90,16 @@ class Extended extends Standard {
 	
 	protected function _partial($tree, $content) 
 	{    
-		$address =  trim($tree["raw"], " /");    
-		if (StringMethods::indexOf($address, "http") !=  0)    
+		$address = trim($tree["raw"], " /");    
+		if (StringMethods::indexOf($address, "http") != 0)    
 		{        
-			$host =  RequestMethods::server("HTTP_HOST");     
-			$address =  "http://{$host}/{$address}";    
+			$host = RequestMethods::server("HTTP_HOST");     
+			$address = "http://{$host}/{$address}";    
 		}
 	
-		$request =  new Request();   
-		$response =  addslashes(trim($request-> get($address)));    
-		return "\$_text[] =  \"{$response}\";"; 
+		$request = new Request();   
+		$response = addslashes(trim($request-> get($address)));    
+		return "\$_text[] = \"{$response}\";"; 
 	}
 	
 	protected function _getKey($tree) 

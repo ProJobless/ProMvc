@@ -32,7 +32,7 @@ class View extends Base {
 	{
 		parent::__construct($options);
 		$this-> _template = new Template(array(
-			"implementation" => new Template\Implementation\Standard()
+			"implementation" => new Template\Implementation\Extended()
 		));
 	}
 	

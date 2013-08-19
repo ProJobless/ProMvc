@@ -399,6 +399,8 @@ class Model extends Base {
 		
 		return $query->count();
 	}
+	
+	
 }
 
 ?>
