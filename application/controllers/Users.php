@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\models\Message;
+
 use application\models\Friend;
 
 use Framework\Registry;
@@ -11,55 +13,86 @@ use application\models\User;
 use Framework\RequestMethods;
 
 class Users extends \Framework\Shared\Controller {
-	
+
 	public function index()
 	{
-		var_dump("action index"); 
+		var_dump("action index");
 		//$view = $this->getActionView();
-		
-		
+
+
 		//$view = $this->getWillRenderActionView();
-		
+
 		//$this->render();
-	} 
-	
+	}
+
 	public function profile()
 	{
 		$session = Registry::get("session");
 		$user = unserialize($session-> get("user", null));
-		
+
 		if (empty($user))
 		{
 			$user = new \StdClass();
 			$user-> first = "Mr.";
 			$user-> last = "Smith";
 		}
-		
+
 		$this-> getActionView()-> set("user", $user);
+
+		$view = $this-> getActionView();
+
+		if ($user)
+		{
+
+			$friends = Friend::all(array(
+					"user = ?" => $user->id,
+					"live = ?" => true,
+					"deleted = ?" => false
+			), array("friend"));
+
+			$ids = array();
+			foreach ($friends as $friend)
+			{
+				$ids[] = $friend->friend;
+			}
+
+			$messages = Message::all(array(
+					"user IN ?" => $ids,
+					"live = ?" => true,
+					"deleted = ?" => false
+			), array(
+					"*",
+					"(SELECT CONCAT(first, \"\", last) FROM user WHERE user.id = message.user)" => "user_name"
+			), "created", "asc");
+
+			$view->set("messages", $messages);
+
+		}
+
 	}
-	
+
 	public function login()
 	{
 		if (RequestMethods::post("login"))
 		{
 			$email = RequestMethods::post("email");
 			$password = RequestMethods::post("password");
-			
+
 			$view = $this-> getActionView();
 			$error = false;
-			
+
 			if (empty($email))
 			{
 				$view->set("email_error", "Email not provided");
 				$error = true;
 			}
-			
+
 			if (empty($password))
 			{
 				$view->set("password_error", "Password not provided");
 				$error = true;
 			}
-			
+
 			if (!$error)
 			{
 				$user = User::first(array(
@@ -68,14 +101,14 @@ class Users extends \Framework\Shared\Controller {
 						"live = ?" => true,
 						"deleted = ?" => false
 				));
-				
-				
-				
+
+
+
 				if (!empty($user))
 				{
 					$session = Registry::get("session");
 					$session->set("user", serialize($user));
-					
+
 					header("location: /profile");
 					exit();
 				}
@@ -83,17 +116,17 @@ class Users extends \Framework\Shared\Controller {
 				{
 					$view->set("password_error", "Email adress and/or password are incorrect");
 				}
-				
+
 				exit();
 			}
 		}
 	}
-	
-	
+
+
 	public function register()
 	{
 		$view =  $this-> getActionView();
-		
+
 		if (RequestMethods::post("register"))
 		{
 			$user = new User(array(
@@ -102,67 +135,67 @@ class Users extends \Framework\Shared\Controller {
 				"email" => RequestMethods::post("email"),
 				"password" => RequestMethods::post("password")
 			));
-			
+
 			if ($user->validate())
 			{
 				$user->save();
 				$view->set("success", true);
 			}
-			
+
 			$view->set("errors", $user->getErrors());
 		}
-		else 
+		else
 		{
 			$view->set("errors", array());
 		}
-		
+
 	}
-	
+
 	public function search()
 	{
 		$view =  $this-> getActionView();
-		
-		$query =  RequestMethods::post("query");    
-		$order =  RequestMethods::post("order", "modified");    
-		$direction =  RequestMethods::post("direction", "desc");    
-		$page =  RequestMethods::post("page", 1);    
+
+		$query =  RequestMethods::post("query");
+		$order =  RequestMethods::post("order", "modified");
+		$direction =  RequestMethods::post("direction", "desc");
+		$page =  RequestMethods::post("page", 1);
 		$limit =  RequestMethods::post("limit", 10);
-		
-		$count =  0;    
+
+		$count =  0;
 		$users =  false;
-		
-		if (RequestMethods::post("search"))    
-		{        
-			$where =  array(            
-					"SOUNDEX(first) =  SOUNDEX(?)" => $query,            
-					"live =  ?" => true,            
-					"deleted =  ?" => false        
+
+		if (RequestMethods::post("search"))
+		{
+			$where =  array(
+					"SOUNDEX(first) =  SOUNDEX(?)" => $query,
+					"live =  ?" => true,
+					"deleted =  ?" => false
 			);
-		
-			$fields =  array(            
-					"id", "first", "last"        
+
+			$fields =  array(
+					"id", "first", "last"
 			);
-		
-			$count =  User::count($where);        
-			$users =  User::all($where, $fields, $order, $direction, $limit, $page);    
+
+			$count =  User::count($where);
+			$users =  User::all($where, $fields, $order, $direction, $limit, $page);
 		}
-		
-		$view        
-			-> set("query", $query)        
-			-> set("order", $order)        
-			-> set("direction", $direction)        
-			-> set("page", $page)        
-			-> set("limit", $limit)        
-			-> set("count", $count)        
+
+		$view
+			-> set("query", $query)
+			-> set("order", $order)
+			-> set("direction", $direction)
+			-> set("page", $page)
+			-> set("limit", $limit)
+			-> set("count", $count)
 			-> set("users", $users);
 	}
-	
+
 	public function settings()
 	{
 
 		$view = $this->getActionView();
 		$user = $this->getUser();
-		
+
 		if (RequestMethods::post("update"))
 		{
 			$user = new User(array(
@@ -171,13 +204,13 @@ class Users extends \Framework\Shared\Controller {
 				"email" => RequestMethods::post("email", $user->email),
 				"password" => RequestMethods::post("password", $user->password)
 			));
-			
+
 			if ($user->validate())
 			{
 				$user->save();
 				$view->set("success", true);
 			}
-			
+
 			$view->set("errors", $user->getErrors());
 		}
 		else
@@ -185,18 +218,18 @@ class Users extends \Framework\Shared\Controller {
 			$view->set("errors", array());
 		}
 	}
-	
+
 	public function logout()
 	{
 		$this->setUser(false);
-		
+
 		$session = Registry::get("session");
 		$session->erase("user");
-		
+
 		header("Location: /login");
 		exit();
 	}
-	
+
 	/**
 	 * @before _secure
 	 */
@@ -204,18 +237,18 @@ class Users extends \Framework\Shared\Controller {
 	{
 		// only logued user
 		$user = $this->getUser();
-		
+
 		$friend = new Friend(array(
 				"user" => $user->id,
 				"friend" => $id
 		));
-		
+
 		$friend->save();
-		
+
 		header("Location: /search");
 		exit();
 	}
-	
+
 	/**
 	 * @before _secure
 	 */
@@ -223,24 +256,24 @@ class Users extends \Framework\Shared\Controller {
 	{
 		// only logued user
 		$user = $this->getUser();
-		
+
 		$friend = Friend::first(array(
 				"user" => $user->id,
 				"friend" => $id
 		));
-		
+
 		if ($friend)
 		{
 			$friend = new Friend(array(
 					"id" => $friend->id
 			));
 			$friend->delete();
-			
+
 			header("Location: /search");
 			exit();
 		}
 	}
-	
+
 	/**
 	 * @protected
 	 */
