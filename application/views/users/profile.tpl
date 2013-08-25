@@ -17,9 +17,9 @@ This is a profile page!
 {if isset($messages)}
 	{foreach $message in $messages}
 		{echo $message->body}<br />
-		{foreach $reply in Message::fetchReplies($message->id)}
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{echo $reply->body}<br />
-		{/foreach}
+		<!-- acc foreach $ reply in Message :: fetchReplies($ message->id) acc
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ echo $ reply->body }<br />
+		acc /foreach acc -->
 		<form method="post" action="messages/add">
 			<textarea name="body"></textarea>
 			<input type="hidden" value="{echo $message->id}" name="message" />

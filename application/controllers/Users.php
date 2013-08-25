@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\models\Voiture;
+
 use application\models\Message;
 
 use application\models\Friend;
@@ -50,23 +52,21 @@ class Users extends \Framework\Shared\Controller {
 					"deleted = ?" => false
 			), array("friend"));
 
-			$ids = array();
 			foreach ($friends as $friend)
 			{
 				$ids[] = $friend->friend;
 			}
 
 			$messages = Message::all(array(
-					"user IN ?" => $ids,
-					"live = ?" => true,
-					"deleted = ?" => false
+				"user in ?" => $ids,
+				"live = ?" => true,
+				"deleted = ?" => false
 			), array(
-					"*",
-					"(SELECT CONCAT(first, \"\", last) FROM user WHERE user.id = message.user)" => "user_name"
+				"*",
+				"(SELECT CONCAT(first, \"\", last) FROM user WHERE user.id = message.user)" => "user_name"
 			), "created", "asc");
 
 			$view->set("messages", $messages);
-
 		}
 
 	}

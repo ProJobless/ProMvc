@@ -7,6 +7,11 @@ use Framework\Shared as Shared;
 class Message extends Shared\Model {
 
 	/**
+	 * @readwrite
+	 */
+	protected $_user_name;
+
+	/**
 	 * @column
 	 * @readwrite
 	 * @type text
@@ -54,6 +59,11 @@ class Message extends Shared\Model {
 			"id" => $id
 		));
 		return $message->getReplies();
+	}
+
+	public function setUser_name($user)
+	{
+		$this->_user_name = $user;
 	}
 
 }
