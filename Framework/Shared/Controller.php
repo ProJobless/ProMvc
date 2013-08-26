@@ -2,6 +2,8 @@
 
 namespace Framework\Shared;
 
+use Framework\Events;
+
 use application\components\header\Header;
 
 use Framework\Registry;
@@ -17,9 +19,18 @@ class Controller extends \Framework\Controller {
 	{
 		parent::__construct($options);
 		
-		// database functionnality
+		// connect to database
 		$database = \Framework\Registry::get("database");
 		$database->connect();
+		
+		// schedule disconnect from database
+		Events::add("framework.controller.destruct.after", function($name) {
+			$database = Registry::get("database");
+			$database->disconnect(); 
+		});
+		
+		
+		
 		
 		$session = \Framework\Registry::get("session");
 		$user = unserialize($session->get("user", null));

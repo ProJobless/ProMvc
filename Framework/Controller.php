@@ -53,6 +53,11 @@ class Controller extends Base {
 	 */
 	protected $_defaultContentType = "text/html";
 	
+	/**
+	 * @readwrite
+	 */
+	protected $_name;
+	
 	protected function _getExceptionForImplementation($method)
 	{
 		return new Exception\Implementation("{$method} method not implemented");
@@ -135,9 +140,27 @@ class Controller extends Base {
 		}
 	}
 	
+	/**
+	 * Returns the name of the current controller
+	 * @return string
+	 */
+	protected function getName()
+	{
+		if (empty($this->name))
+		{
+			$this->_name = get_class($this);	
+		}
+		
+		return $this->_name;
+	}
+	
 	public function __destruct()
 	{
+		Events::fire("framework.controller.destruct.before", array($this->name));
+		
 		$this->render();
+		
+		Events::fire("framework.controller.destruct.after", array($this->name));
 	}
 	
 	
