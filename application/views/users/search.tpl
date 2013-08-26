@@ -60,14 +60,16 @@ Limit:
 <tr>            
 <th > Name</th>        
 </tr>        
-{foreach $row in $users}            
-<tr>                
-<td > {echo $row-> first} {echo $row->last}</td>   
-<td>
-	<a href="/users/friend/{echo $row->id}">friend</a>
-	<a href="/users/unfriend/{echo $row->id}">unfriend</a>
-</td>         
-</tr>        
+{foreach $_user in $users}   
+	{script $file = $_user->file}         
+	<tr>             
+		<td>{if $file}<img src="/uploads/{echo $file->name}" />{/if}</td>
+		<td> {echo $_user-> first} {echo $_user->last}</td>   
+		<td>
+		<a href="/users/friend/{echo $_user->id}">friend</a>
+		<a href="/users/unfriend/{echo $_user->id}">unfriend</a>
+		</td>         
+	</tr>        
 {/foreach}    
 </table> 
 {/if}              

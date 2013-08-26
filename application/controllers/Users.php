@@ -165,23 +165,34 @@ class Users extends \Framework\Shared\Controller {
 	 */
 	public function settings()
 	{
-
+		
+		$session = Registry::get("session");
+		$user = unserialize($session->get("user", null));
+		
 		$view = $this->getActionView();
-		$user = $this->getUser();
+		//$user = $this->getUser();
 		
 		if (RequestMethods::post("update"))
 		{
-			$user = new User(array(
-				"first" => RequestMethods::post("first", $user->first),
-				"last" => RequestMethods::post("last", $user->last),
-				"email" => RequestMethods::post("email", $user->email),
-				"password" => RequestMethods::post("password", $user->password)
-			));
+			$user->first = RequestMethods::post("first");
+			$user->last = RequestMethods::post("last");
+			$user->email = RequestMethods::post("email");
+			if (RequestMethods::post("password"))
+			{
+				$user->password = RequestMethods::post("password");
+			}
 			
 			if ($user->validate())
 			{
 				$user->save();
+				$this->_upload("photo", $user->id);
 				$view->set("success", true);
+			
+				$session->erase("user");
+				$session->set("user", serialize($user));
+				
+				//header("location: /settings");
+				//exit();
 			}
 			
 			$view->set("errors", $user->getErrors());

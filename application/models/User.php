@@ -116,4 +116,17 @@ class User extends \Framework\Shared\Model {
 		));
 		return $user->isFriend($friend);
 	}
+	
+	/**
+	 * Returns the latest file from the database,
+	 * which is linked to the current user row
+	 */
+	public function getFile()
+	{
+		return File::first(array(
+			"user = ?"    => $this->id,
+			"live = ?"    => true,
+			"deleted = ?" => false 
+		), array("*"), "id", "DESC");
+	}
 }

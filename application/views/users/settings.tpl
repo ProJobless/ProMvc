@@ -3,7 +3,7 @@
 Your account has been updated! 
 {/if}
 {else}    
-<form method="post">        
+<form method="post" enctype="multipart/form-data">  
 <ol>            
 <li>                
 <label>                    
@@ -32,7 +32,13 @@ Password:
 <input type="password" name="password" value="{echo $user-> password}" /> 
 {echo \Framework\Shared\Markup::errors($errors, "password")}            
 </label>            
-</li>            
+</li>   
+<li>
+	<label>
+		Photo :
+		<input type="file" name="photo" />
+	</label>
+</li>       
 <li>                
 <input type="submit" name="update" value="update" />            
 </li>        
