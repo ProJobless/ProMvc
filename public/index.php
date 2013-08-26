@@ -128,7 +128,7 @@ catch (Exception $e)
 	// render fallback template
 	
 	header("Content-type: text/html");
-	echo "An error occurred.";
+	echo "An error occurred." . $e->getMessage();
 	exit;
 }
 

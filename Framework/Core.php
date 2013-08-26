@@ -6,6 +6,18 @@ class Core {
 	
 	public static function initialize()
 	{
+		spl_autoload_register(function($class)
+		{
+			$path = lcfirst(str_replace("\\", DS, $class));
+			$file = APP_PATH . "/application/libraries/{$path}.php";
+			
+			if (file_exists($file))
+			{
+				require_once $file;
+				return true;
+			}
+		});
+		
 		spl_autoload_register(array(__NAMESPACE__ . "\\Autoloader", 'autoload'));
 	}
 }

@@ -3,6 +3,12 @@
 // define routes
 
 $routes = array(
+		
+		array(
+				"pattern" => "thumbnails/:id",
+				"controller" => "files",
+				"action" => "thumbnails"
+		),
 		array(
 			"pattern" => "register",
 			"controller" => "users",

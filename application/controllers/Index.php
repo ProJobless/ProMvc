@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use Imagine\Gd\Imagine;
+
 use application\components\Bloc\Bloc;
 
 use application\components\Graph;
@@ -36,6 +38,13 @@ class Index extends \Framework\Shared\Controller {
 	 */
 	public function index()
 	{
+		
+		$i = new Imagine();
+		
+		
+		var_dump("------------------------------");
+		var_dump("------------------------------");
+		var_dump("------------------------------");
 		$layout = $this->getLayoutView();
 		
 		$g = new Graph(array("type" => "line"));
