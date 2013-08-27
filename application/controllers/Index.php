@@ -113,7 +113,7 @@ class Index extends \Framework\Shared\Controller {
 				"connector" => $db
 				));
 	
-		$db->sync($user);
+		/////////$db->sync($user);
 		
 		$elijah = new User(array(
 				

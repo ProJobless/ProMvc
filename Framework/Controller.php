@@ -163,5 +163,8 @@ class Controller extends Base {
 		Events::fire("framework.controller.destruct.after", array($this->name));
 	}
 	
-	
+	public function redirect($url)
+	{
+		header("location: $url");
+	}
 }

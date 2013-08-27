@@ -95,6 +95,13 @@ class User extends \Framework\Shared\Model {
 	 */
 	protected $_modified;
 	
+	/**
+	 * @column
+	 * @readwrite
+	 * @type boolean
+	 */
+	protected $_admin = false;
+	
 	public function isFriend($id)
 	{
 		$friend = Friend::first(array(

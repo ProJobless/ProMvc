@@ -2,11 +2,15 @@
 
 namespace Framework\Shared;
 
+use application\models\User;
+
 use Framework\Events;
 
 use application\components\header\Header;
 
 use Framework\Registry;
+
+use Framework\Router as Router;
 
 class Controller extends \Framework\Controller {
 	
@@ -14,6 +18,28 @@ class Controller extends \Framework\Controller {
 	 * @readwrite
 	 */
 	protected $_user;
+	
+	/**
+	 * Overrrides the $_user setter method
+	 * @param unknown_type $user
+	 * @return \Framework\Shared\Controller
+	 */
+	public function setUser($user)
+	{
+		$session = Registry::get("session");
+		
+		if ($user)
+		{
+			$session->set("user", $user->id);
+		}
+		else
+		{
+			$session->erase("user");
+		}
+		
+		$this->_user = $user;
+		return $this;
+	}
 	
 	public function __construct($options=array())
 	{
@@ -23,7 +49,49 @@ class Controller extends \Framework\Controller {
 		$database = \Framework\Registry::get("database");
 		$database->connect();
 		
-		// schedule disconnect from database
+		// schedule: load user from session
+		// retrives a user row based on session data
+		// it will occur before any action hooks or actions are executed
+		Events::add("framework.router.beforehooks.before", function($parameters) {
+			
+			// var_dump("framework.router.beforehooks.before");
+			
+			$session = Registry::get("session");
+			$controller = Registry::get("controller");
+			$user = $session->get("user");
+			// var_dump($user);
+			
+			//$user = unserialize($session->get("user", null));
+			
+			if ($user)
+			{
+				//echo "load user $user from session";
+				//echo " - Set $user dans $ controller->user";
+				$controller->user = User::first(array(
+					"id = ?" => $user
+				));
+			}
+		});
+		
+		// schedule: save user to session
+		// stores a user reference to the session
+		// it will occur after all the action hooks and actions are executed
+		Events::add("framework.router.afterhooks.after", function($parameters) {
+			
+			// var_dump("framework.router.afterhooks.after");
+		
+			$controller = Registry::get("controller");
+			
+			if ($controller->user)
+			{
+				//echo "save user to session";
+				//echo " - SET ! set 'user', " . $controller->user->id;
+				$session = Registry::get("session");
+				$session->set("user", $controller->user->id);
+			}
+		});
+		
+		// schedule: disconnect from database
 		Events::add("framework.controller.destruct.after", function($name) {
 			$database = Registry::get("database");
 			$database->disconnect(); 
@@ -31,11 +99,6 @@ class Controller extends \Framework\Controller {
 		
 		
 		
-		
-		$session = \Framework\Registry::get("session");
-		$user = unserialize($session->get("user", null));
-		$this->setUser($user);
-	
 	
 		// set the Header component
 		$configuration = Registry::get("configuration");
@@ -60,21 +123,46 @@ class Controller extends \Framework\Controller {
 	
 	public function render()
 	{
-		if ($this-> getUser())    
+		/* if the user and view(s) are defined,
+		 * assign the user session to the view(s)
+		 */
+		
+		if ($this->getUser())    
 		{        
-			if ($this-> getActionView())       
-			{            
+			if ($this->getActionView())       
+			{   
+				$key = "user";
+				if ($this->actionView->get($key, false))
+				{
+					$key = "__user";
+				}         
 				$this->getActionView()                
-					->set("user", $this->getUser());        
+					->set($key, $this->getUser());        
 			}
 		
 			if ($this->getLayoutView())        
 			{            
+				$key = "user";
+				if ($this->layoutView->get($key, false))
+				{
+					$key = "__user";
+				}
 				$this->getLayoutView()                
-					->set("user", $this->getUser());        
+					->set($key, $this->getUser());        
 			}    
 		}
 		
 		parent::render();
+	}
+	
+	/**
+	 * @protected
+	 */
+	public function _admin()
+	{
+		if (!$this->user->admin)
+		{
+			throw new Router\Exception\Controller("Not a valid admin user account");
+		}
 	}
 }

@@ -5,6 +5,36 @@
 $routes = array(
 		
 		array(
+				"pattern" => "users/view",
+				"controller" => "users",
+				"action" => "view"
+		),
+		array(
+				"pattern" => "files/undelete/:id",
+				"controller" => "files",
+				"action" => "undelete"
+		),
+		array(
+				"pattern" => "files/delete/:id",
+				"controller" => "files",
+				"action" => "delete"
+		),
+		array(
+				"pattern" => "users/undelete/:id",
+				"controller" => "users",
+				"action" => "undelete"
+		),
+		array(
+				"pattern" => "users/delete/:id",
+				"controller" => "users",
+				"action" => "delete"
+		),
+		array(
+				"pattern" => "users/edit/:id",
+				"controller" => "users",
+				"action" => "edit"
+		),
+		array(
 				"pattern" => "thumbnails/:id",
 				"controller" => "files",
 				"action" => "thumbnails"

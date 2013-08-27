@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use Framework\Shared\Markup;
+
 use application\models\File;
 
 use application\models\Friend;
@@ -13,6 +15,97 @@ use application\models\User;
 use Framework\RequestMethods;
 
 class Users extends \Framework\Shared\Controller {
+	
+	/**
+	 * @before _secure, _admin
+	 * @param int $id
+	 */
+	public function delete($id)
+	{
+		$user = User::first(array(
+			"id=?" => $id
+		));
+		
+		if ($user)
+		{
+			$user->live = false;
+			$user->save();
+		}
+		
+		self::redirect("/users/view");
+	}
+	
+	/**
+	 * @before _secure, _admin
+	 * @param int $id
+	 */
+	public function undelete($id)
+	{
+		$user = User::first(array(
+			"id=?" => $id
+		));
+		
+		if ($user)
+		{
+			$user->live = true;
+			$user->save();
+		}
+		
+		self::redirect("/users/view"); 
+	}
+	
+	/**
+	 * @before _secure, _admin
+	 */
+	public function edit($id)
+	{
+		$errors = array();
+		$first='';
+		$last='';
+		$password='';
+		$email='';
+		
+		$user = User::first(array(
+			"id=?" => $id
+		));
+		
+		if (RequestMethods::post("save"))
+		{
+			$user->first = RequestMethods::post("first");
+			$user->last = RequestMethods::post("last");
+			$user->email = RequestMethods::post("email");
+			$user->password = RequestMethods::post("password");
+			$user->live = (boolean) RequestMethods::post("live");
+			$user->admin = (boolean) RequestMethods::post("admin");
+			
+			if ($user->validate())
+			{
+				$user->save();
+				$this->actionView->set("success", true);
+			}
+			
+			$errors = $user->errors;
+			$first    = Markup::errors($errors, "first");
+			$last     = Markup::errors($errors, "last");
+			$email    = Markup::errors($errors, "email");
+			$password = Markup::errors($errors, "password");
+		
+		}
+		
+		$this->actionView
+			->set("user", $user)
+			->set("errors", $errors)
+			->set("password", $password)
+			->set("email", $email);
+	}
+	
+	/**
+	 * @before _secure, _admin
+	 */
+	public function view()
+	{
+		$this->actionView->set("users", User::all());
+	}
 	
 	public function index()
 	{
@@ -27,23 +120,24 @@ class Users extends \Framework\Shared\Controller {
 	
 	public function profile()
 	{
-		$session = Registry::get("session");
-		$user = unserialize($session-> get("user", null));
-		
-		if (empty($user))
-		{
-			$user = new \StdClass();
-			$user-> first = "Mr.";
-			$user-> last = "Smith";
-		}
+		$controller = Registry::get("controller");
+		$user = $controller->user;
 		
 		$this-> getActionView()-> set("user", $user);
 	}
 	
 	public function login()
 	{
+		
 		if (RequestMethods::post("login"))
 		{
+			var_dump("POST login");
+			$session = Registry::get("session");
+			$user = $session->get("user");
+			var_dump($user);
+			
+			
+			
 			$email = RequestMethods::post("email");
 			$password = RequestMethods::post("password");
 			
@@ -75,8 +169,14 @@ class Users extends \Framework\Shared\Controller {
 				
 				if (!empty($user))
 				{
+					// code deja present avant
 					$session = Registry::get("session");
-					$session->set("user", serialize($user));
+					$session->set("user", $user->id);
+					
+					// essai
+					//$session = Registry::get("session");
+					//$session->set("user", $this->user->id);
+					
 					
 					header("location: /profile");
 					exit();
@@ -167,7 +267,8 @@ class Users extends \Framework\Shared\Controller {
 	{
 		
 		$session = Registry::get("session");
-		$user = unserialize($session->get("user", null));
+		$controller = Registry::get("controller");
+		$user = $controller->user;
 		
 		$view = $this->getActionView();
 		//$user = $this->getUser();
@@ -189,7 +290,7 @@ class Users extends \Framework\Shared\Controller {
 				$view->set("success", true);
 			
 				$session->erase("user");
-				$session->set("user", serialize($user));
+				$session->set("user", $user->id);
 				
 				//header("location: /settings");
 				//exit();

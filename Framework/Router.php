@@ -110,6 +110,8 @@ class Router extends Base {
 		$this->_controller = $controller;
 		$this->_action = $action;
 		
+		Events::fire("framework.router.controller.before", array($controller, $parameters));
+		
 		try 
 		{	
 			$name = ($name == '') ? 'Home' : $name;
@@ -123,6 +125,7 @@ class Router extends Base {
 		{
 			throw new Exception\Controller("Controller {$name} not found");
 		}
+		Events::fire("framework.router.controller.after", array($controller, $parameters));
 		
 		if (!method_exists($instance, $action))
 		{
@@ -161,17 +164,26 @@ class Router extends Base {
 			}
 		};
 		
+		Events::fire("framework.router.beforehooks.before", array($action, $parameters));
+		
 		$hooks($methodMeta, "@before");
+		
+		Events::fire("framework.router.beforehooks.after", array($action, $parameters));
+		Events::fire("framework.router.action.before", array($action, $parameters));
 		
 		call_user_func_array(array(
 			$instance,
 			$action
 		), is_array($parameters) ? $parameters : array());
 		
+		Events::fire("framework.router.action.after", array($action, $parameters));
+		Events::fire("framework.router.afterhooks.before", array($action, $parameters));
+		
 		$hooks($methodMeta, "@after");
 		
-		// unset controller
+		Events::fire("framework.router.afterhooks.after", array($action, $parameters));
 		
+		// unset controller
 		Registry::erase("controller");
 	}
 
