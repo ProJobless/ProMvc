@@ -109,10 +109,9 @@ class Controller extends \Framework\Controller {
 	
 			if (!empty($parsed->config->component->header->title))
 			{
-				$title = $parsed->config->component->header->title;
-	
 				$cHeader = new Header(array(
-						"title" => $title
+					"title" => $parsed->config->component->header->title,
+					"subtitle" => $parsed->config->component->header->subtitle
 				));
 			}
 		}
@@ -153,6 +152,19 @@ class Controller extends \Framework\Controller {
 		}
 		
 		parent::render();
+	}
+	
+	/**
+	 * @protected
+	 */
+	public function _secure()
+	{
+		$user = $this->getUser();
+		if (!$user)
+		{
+			header("Location: /login");
+			exit();
+		}
 	}
 	
 	/**

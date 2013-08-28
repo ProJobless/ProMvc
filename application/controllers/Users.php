@@ -368,18 +368,7 @@ class Users extends \Framework\Shared\Controller {
 		}
 	}
 	
-	/**
-	 * @protected
-	 */
-	public function _secure()
-	{
-		$user = $this->getUser();
-		if (!$user)
-		{
-			header("Location: /login");
-			exit();
-		}
-	}
+	
 	
 	protected function _upload($name, $user)
 	{

@@ -1,0 +1,13 @@
+body {
+	margin: 0 auto;
+	padding: 0;
+	color: #292929;
+	background-color: #B5C0C6;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	line-height: 20px;
+}
+
+#top-menu {
+	padding: 13px 0;
+	background: #333 url(../img/nav.png);
+}
