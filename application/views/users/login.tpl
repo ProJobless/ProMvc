@@ -5,18 +5,18 @@
 			<label>
 				Email:
 				<input type = "text" name = "email" />
-				{if isset($email_error)}
-					{echo $email_error}
-				{/if}
+				{% if email_error %}
+					{{ email_error }}
+				{% endif %}
 			</label>
 		</li>
 		<li>
 			<label>
 				Password:
 				<input type = "password" name = "password" />
-				{if isset($password_error)}
-					{echo $password_error}
-				{/if}
+				{% if password_error %}
+					{{ password_error }}
+				{% endif %}
 			</label>
 		</li>
 		<li>

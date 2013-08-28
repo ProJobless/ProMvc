@@ -136,4 +136,9 @@ class User extends \Framework\Shared\Model {
 			"deleted = ?" => false 
 		), array("*"), "id", "DESC");
 	}
+	
+	public function admin()
+	{
+		return $this->_admin;
+	}
 }

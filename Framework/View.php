@@ -12,6 +12,16 @@ class View extends Base {
 	protected $_file;
 	
 	/**
+	 * @readwrite
+	 */
+	protected $_filename;
+	
+	/**
+	 * @readwrite
+	 */
+	protected $_path;
+	
+	/**
 	 * @read
 	 */
 	protected $_template;
@@ -31,9 +41,7 @@ class View extends Base {
 	public function __construct($options = array())
 	{
 		parent::__construct($options);
-		$this-> _template = new Template(array(
-			"implementation" => new Template\Implementation\Standard()
-		));
+
 	}
 	
 	public function render()
@@ -43,10 +51,19 @@ class View extends Base {
 			return "";
 		}
 		
-		$content = file_get_contents($this->getFile());
+		//var_dump($this->getPath());
+		//var_dump($this->getFilename());
 		
-		$this->_template->parse($content);
-		return $this->_template->process($this->_data);
+		$loader = new \Twig_Loader_Filesystem($this->getPath());
+		$this-> _template = new \Twig_Environment($loader, array('autoescape' => false));
+		
+		try{
+			return $this->_template->render($this->getFilename(), $this->_data);
+		}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+		}
 		
 	}
 	

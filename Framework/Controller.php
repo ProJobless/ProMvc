@@ -79,7 +79,9 @@ class Controller extends Base {
 			$defaultExtension = $this->getDefaultExtension();
 				
 			$view = new View(array(
-					"file" => APP_PATH."/{$defaultPath}/{$defaultLayout}.{$defaultExtension}"
+					"file" => APP_PATH."/{$defaultPath}/{$defaultLayout}.{$defaultExtension}",
+					"filename" => "layouts/standard.tpl",
+					"path" =>  APP_PATH."/{$defaultPath}/",
 			));
 				
 			$this->setLayoutView($view);
@@ -92,7 +94,9 @@ class Controller extends Base {
 			$action = $router-> getAction();
 				
 			$view = new View(array(
-					"file" => APP_PATH."/{$defaultPath}/{$controller}/{$action}.{$defaultExtension}"
+					"file" => APP_PATH."/{$defaultPath}/{$controller}/{$action}.{$defaultExtension}",
+					"filename" => "{$action}.{$defaultExtension}",
+					"path" => APP_PATH."/{$defaultPath}/{$controller}/",
 			));
 				
 			$this->setActionView($view);
@@ -109,6 +113,7 @@ class Controller extends Base {
 		
 		try
 		{
+			
 			if ($doAction)
 			{
 				$view = $this->getActionView();

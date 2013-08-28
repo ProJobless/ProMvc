@@ -123,7 +123,10 @@ class Users extends \Framework\Shared\Controller {
 		$controller = Registry::get("controller");
 		$user = $controller->user;
 		
-		$this-> getActionView()-> set("user", $user);
+		$this-> getActionView()
+			->set("file_id", $user->file->id)
+			->set("first", $user->first)
+			->set("last", $user->last);
 	}
 	
 	public function login()
@@ -212,11 +215,17 @@ class Users extends \Framework\Shared\Controller {
 				$view->set("success", true);
 			}
 			
-			$view->set("errors", $user->getErrors());
+			$view
+				->set("error_first", \Framework\Shared\Markup::errors($user->getErrors(), "first"))
+				->set("error_last", \Framework\Shared\Markup::errors($user->getErrors(), "last"))
+				->set("error_email", \Framework\Shared\Markup::errors($user->getErrors(), "email"))
+				->set("error_password", \Framework\Shared\Markup::errors($user->getErrors(), "password"))
+				->set("errors", $user->getErrors());
 		}
 		else 
 		{
-			$view->set("errors", array());
+			$view
+				->set("errors", array());
 		}
 		
 	}

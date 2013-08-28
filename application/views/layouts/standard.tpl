@@ -7,9 +7,9 @@
 <body>
 	
 	<div>
-		<h1>{$header->getTitle()}</h1>
-		{partial navigation.tpl}
-		{$template}
+		<h1>{{ header.getTitle }}</h1>
+		{% include "navigation.html" %}
+		{{ template }}
 	</div>
 	
 </body>	

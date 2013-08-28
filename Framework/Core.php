@@ -8,6 +8,12 @@ class Core {
 	{
 		spl_autoload_register(function($class)
 		{
+			require_once APP_PATH . '/application/vendor/autoload.php';
+			
+		});
+		
+		spl_autoload_register(function($class)
+		{
 			$path = lcfirst(str_replace("\\", DS, $class));
 			$file = APP_PATH . "/application/libraries/{$path}.php";
 			

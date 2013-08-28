@@ -1,36 +1,35 @@
 <h1>Register</h1>
-{if isset($success)}
+{% if success %}
 Your account has been created!
-{/if}
-{else}
+{% else %}
 <form method="post" enctype="multipart/form-data">
 <ol>
 <li>
 <label>
 First name:
 <input type="text" name="first" />
-{echo \Framework\Shared\Markup::errors($errors, "first")}
+{{ error_first }}
 </label>
 </li>
 <li>
 <label>
 Last name:
 <input type="text" name="last" />
-{echo \Framework\Shared\Markup::errors($errors, "last")}
+{{ error_last }}
 </label>
 </li>
 <li>
 <label>
 Email:
 <input type="text" name="email" />
-{echo \Framework\Shared\Markup::errors($errors, "email")}
+{{ error_email }}
 </label>
 </li>
 <li>
 <label>
 Password:
 <input type="password" name="password" />
-{echo \Framework\Shared\Markup::errors($errors, "password")}
+{{ error_password }}
 </label>
 </li>
 <li>
@@ -44,4 +43,4 @@ Password:
 </li>
 </ol>
 </form>
-{/else}
+{% endif %}

@@ -2,7 +2,8 @@
 
 namespace application\controllers;
 
-use Imagine\Gd\Imagine;
+use \Twig_Loader_String;
+use \Twig_Environment;
 
 use application\components\Bloc\Bloc;
 
@@ -39,12 +40,6 @@ class Index extends \Framework\Shared\Controller {
 	public function index()
 	{
 		
-		$i = new Imagine();
-		
-		
-		var_dump("------------------------------");
-		var_dump("------------------------------");
-		var_dump("------------------------------");
 		$layout = $this->getLayoutView();
 		
 		$g = new Graph(array("type" => "line"));
@@ -52,12 +47,16 @@ class Index extends \Framework\Shared\Controller {
 		
 		$view = $this->getActionView();
 		
+		$perso = "Sasuke";
+		$view->set("perso", $perso);
 		
+		$view = $this->getLayoutView();
+		$view->set("perso", $perso);
 		
 		$bloc = new Bloc();
 		$bloc->addElement($gLine);
 		
-		var_dump($bloc);
+		//////var_dump($bloc);
 		
 		$db = Registry::get("database");
 		
