@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\components\Contact\Contact;
+
 use application\components\Account\Account;
 
 use \Twig_Loader_String;
@@ -42,6 +44,30 @@ class Index extends \Framework\Shared\Controller {
 	 */
 	public function index()
 	{	
+		$view = $this->getActionView();
+		
+		$contact = new Contact(array(
+			"title" => "Infos Contact"
+		));
+		
+		$contact->addDirectique(array(
+			User::first(array(
+				"id=?" => "4"
+			)),
+			User::first(array(
+				"id=?" => "2"
+			))
+		));
+		
+		
+		
+		$view
+			->set("contact_title", $contact->title)
+			->set("contact_directique", $contact->getDirectique())
+		;
+		
+		
+		
 		$account = new Account(
 			"Mon Compte",
 			$this->getUser()->first, 
@@ -49,7 +75,7 @@ class Index extends \Framework\Shared\Controller {
 			$this->getUser()->admin
 		);
 		
-		$view = $this->getActionView();
+		
 		$view
 			->set("account_title", $account->getTitle())
 			->set("account_first", $account->getUFirst())

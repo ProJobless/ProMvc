@@ -1,4 +1,4 @@
-<div id="components_account">
+<div id="component_account">
 	<div class="title-divider">
 		<h3>{{ account_title }}</h3>
 	</div>
