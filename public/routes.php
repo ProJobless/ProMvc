@@ -50,9 +50,10 @@ $routes = array(
 				"action" => "login"
 		),
 		array(
-				"pattern" => "logout",
+				"name"       => "logout",
+				"pattern"    => "logout",
 				"controller" => "users",
-				"action" => "logout"
+				"action" 	 => "logout"
 		),
 		array(
 				"name" => "n_profile",
@@ -87,6 +88,12 @@ $routes = array(
 				"controller" => "home",
 				"action" => "index"
 		),
+		array(
+			"name" 		 => "home",
+			"pattern" 	 => "home",
+			"controller" => "index",
+			"action" 	 => "index"
+		)
 );
 
 // add defined routes

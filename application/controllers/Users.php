@@ -165,7 +165,7 @@ class Users extends \Framework\Shared\Controller {
 					$session = Registry::get("session");
 					$session->set("user", $auth->match($email, $password));
 					
-					$this->redirect("n_profile");
+					$this->redirect("home");
 					exit();
 				}
 				

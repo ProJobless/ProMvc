@@ -70,4 +70,32 @@ body {
  */
 #container .container {
 	background: white;
+	padding: 8px 8px;
+}
+
+/*
+ * components
+ */
+.title-divider {
+	position: relative;
+	height: 36px;
+	color: white;
+	background: black url(../img/title-divider.png);
+	padding: 1px 0; /* avoids margin fusion */
+
+	font-size:12px;
+	font-weight: bold;
+	line-height: 36px;
+}
+.title-divider h3 {
+	margin: 0;
+	font-size:12px;
+	font-weight: bold;
+	line-height: 36px;
+	margin-left: 23px;
+}
+section.widget {
+	background: #DEDEDE;
+	padding: 5px;
+	margin-bottom: 8px;
 }
