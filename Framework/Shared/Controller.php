@@ -110,12 +110,13 @@ class Controller extends \Framework\Controller {
 			if (!empty($parsed->config->component->header->title))
 			{
 				$cHeader = new Header(array(
-					"title" => $parsed->config->component->header->title,
-					"subtitle" => $parsed->config->component->header->subtitle
+					"title"     => $parsed->config->component->header->title,
+					"subtitle"  => $parsed->config->component->header->subtitle,
+					"titleLink" => "/"
 				));
 			}
 		}
-	
+		
 		$layout = $this->getLayoutView();
 		$layout->set("header", $cHeader);
 	}

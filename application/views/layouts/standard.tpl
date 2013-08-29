@@ -49,7 +49,7 @@
 		<header id="header">
 			<div class="container">
 				<div id="title-position">
-					<h1>{{ header.getTitle }}</h1>
+					<h1><a href="{{ header.getTitleLink }}">{{ header.getTitle }}</a></h1>
 		    		<span id="subtitle">{{ header.getSubtitle }}</span>
 				</div>
 			</div>

@@ -4,19 +4,29 @@ namespace application\components\header;
 
 class Header {
 	
-	private $title;
-	private $subtitle;
+	private $_title;
+	private $_subtitle;
+	private $_titleLink;
 	
+	/**
+	 * Constructor
+	 * @param array $params
+	 */
 	public function __construct(array $params)
 	{
 		$this->setTitle($params['title']);
 		$this->setSubtitle($params['subtitle']);
+		$this->setTitleLink($params['titleLink']);
 	}
 	
-	public function getTitle() {return $this->title;}
-	public function setTitle($title) {$this->title = $title;}
-	public function getSubtitle() {return $this->subtitle;}
-	public function setSubtitle($subtitle) {$this->subtitle = $subtitle;}
+	public function getTitle() {return $this->_title;}
+	public function setTitle($title) {$this->_title = $title;}
+	public function getSubtitle() {return $this->_subtitle;}
+	public function setSubtitle($subtitle) {$this->_subtitle = $subtitle;}
+	public function getTitleLink() {return $this->_titleLink;}
+	public function setTitleLink($_titleLink) {$this->_titleLink = $_titleLink;}
+
+	
 
 	
 
