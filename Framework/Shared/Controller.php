@@ -49,7 +49,7 @@ class Controller extends \Framework\Controller {
 		$database = \Framework\Registry::get("database");
 		$database->connect();
 		
-		// schedule: load user from session
+		// schedule: load user from session into the controller 
 		// retrives a user row based on session data
 		// it will occur before any action hooks or actions are executed
 		Events::add("framework.router.beforehooks.before", function($parameters) {

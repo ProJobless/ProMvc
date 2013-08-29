@@ -168,8 +168,17 @@ class Controller extends Base {
 		Events::fire("framework.controller.destruct.after", array($this->name));
 	}
 	
-	public function redirect($url)
+	public function redirect($name)
 	{
-		header("location: $url");
+		$router = Registry::get("router");
+		$list = $router->getRoutesByName();
+		
+		foreach ($list as $route)
+		{
+			if ($route->name == $name)
+			{
+				header("Location: {$route->pattern}");
+			}
+		}
 	}
 }

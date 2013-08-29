@@ -50,6 +50,18 @@ class Router extends Base {
 		}
 	}
 	
+	public function getRoutesByName()
+	{
+		$list = array();
+		
+		foreach ($this->_routes as $route)
+		{
+			$list[$route->name] = $route;
+		}
+		
+		return $list;
+	}
+	
 	public function getRoutes()
 	{
 		$list = array();

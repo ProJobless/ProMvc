@@ -165,11 +165,7 @@ class Users extends \Framework\Shared\Controller {
 					$session = Registry::get("session");
 					$session->set("user", $auth->match($email, $password));
 					
-					
-					
-					
-					
-					header("location: /profile");
+					$this->redirect("n_profile");
 					exit();
 				}
 				

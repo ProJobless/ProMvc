@@ -26,6 +26,11 @@ class Route extends Base {
 	/**
 	 * @readwrite
 	 */
+	protected $_name;
+	
+	/**
+	 * @readwrite
+	 */
 	protected $_parameters = array();
 	
 	public function _getExceptionForImplementation($method)

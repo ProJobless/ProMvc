@@ -55,6 +55,7 @@ $routes = array(
 				"action" => "logout"
 		),
 		array(
+				"name" => "n_profile",
 				"pattern" => "profile",
 				"controller" => "users",
 				"action" => "profile"
