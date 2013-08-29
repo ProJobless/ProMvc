@@ -25,6 +25,8 @@
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="assets/js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
+        
+        <script src="assets/js/amcharts/amcharts.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -72,6 +74,7 @@
         <script src="assets/js/main.js"></script>
 		
 		<script src="assets/js/bootstrap/bootstrap.min.js"></script>
+		
 		
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
