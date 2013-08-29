@@ -7,7 +7,67 @@ body {
 	line-height: 20px;
 }
 
+.container {
+	width: 1170px;
+	width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+/*
+ * top-menu
+ */
 #top-menu {
-	padding: 13px 0;
 	background: #333 url(../img/nav.png);
+}
+
+#top-menu ul.top-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#top-menu li {
+	float: left;
+	list-style: none;
+	margin-right: 20px;
+	line-height: 33px;
+}
+
+#top-menu a {
+	color: #FFF;
+	font-size: 14px;
+}
+
+/*
+ * header
+ */
+#header .container {
+	background: white url(../img/header.jpg);
+	height: 80px;
+	position: relative;
+}
+#header #title-position {
+	position: absolute;
+	left: 25px;
+	top: 16px;
+}
+#header h1 {
+	font-style: italic;
+	font-size: 24px;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	color: #000 !important;
+	font-weight: bold;
+}
+#header #subtitle {
+	font-weight: bold;
+}
+
+/*
+ * container
+ */
+#container .container {
+	background: white;
 }

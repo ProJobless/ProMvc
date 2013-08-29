@@ -1,0 +1,16 @@
+#auth_container {
+	padding: 15px 0;
+	width: 500px;
+	border: 1px solid #CCC;
+	margin: 30px auto;
+	text-align: center;
+}
+
+#auth_title {
+	
+	font-weight: bold;
+	font-style: italic;
+	color: #595959;
+	font-size: 24px;
+	
+}

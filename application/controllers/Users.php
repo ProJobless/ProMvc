@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\components\Auth\Auth;
+
 use Framework\Shared\Markup;
 
 use application\models\File;
@@ -127,66 +129,48 @@ class Users extends \Framework\Shared\Controller {
 			->set("file_id", $user->file->id)
 			->set("first", $user->first)
 			->set("last", $user->last);
+			
 	}
 	
 	public function login()
 	{
+		$view = $this-> getActionView();
+		$auth = new Auth();
 		
 		if (RequestMethods::post("login"))
 		{
-			var_dump("POST login");
-			$session = Registry::get("session");
-			$user = $session->get("user");
-			var_dump($user);
-			
-			
-			
 			$email = RequestMethods::post("email");
 			$password = RequestMethods::post("password");
 			
-			$view = $this-> getActionView();
-			$error = false;
-			
-			if (empty($email))
+			if (!$auth->validate($email, $password)) 
 			{
-				$view->set("email_error", "Email not provided");
-				$error = true;
-			}
-			
-			if (empty($password))
-			{
-				$view->set("password_error", "Password not provided");
-				$error = true;
-			}
-			
-			if (!$error)
-			{
-				$user = User::first(array(
-						"email = ?" => $email,
-						"password = ?" => $password,
-						"live = ?" => true,
-						"deleted = ?" => false
-				));
-				
-				
-				
-				if (!empty($user))
+				if ($auth->getError_email())
 				{
-					// code deja present avant
+					$view->set("email_error", "Email not provided");
+				}
+				
+				if ($auth->getError_password())
+				{
+					$view->set("password_error", "Password not provided");
+				}
+			}
+			else 
+			{
+				if (!$auth->match($email, $password))
+				{
+					$view->set("password_error", "Email adress and/or password are incorrect");
+				}
+				else
+				{
 					$session = Registry::get("session");
-					$session->set("user", $user->id);
+					$session->set("user", $auth->match($email, $password));
 					
-					// essai
-					//$session = Registry::get("session");
-					//$session->set("user", $this->user->id);
+					
+					
 					
 					
 					header("location: /profile");
 					exit();
-				}
-				else
-				{
-					$view->set("password_error", "Email adress and/or password are incorrect");
 				}
 				
 				exit();

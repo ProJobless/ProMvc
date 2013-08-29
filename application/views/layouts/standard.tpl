@@ -17,6 +17,9 @@
     	<link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     	<!-- Custum -->
         <link rel="stylesheet" href="assets/css/portal.css">
+        
+        <!--  components -->
+        <link rel="stylesheet" href="assets/css/components/auth/auth.css">
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -43,18 +46,22 @@
 		</section>
 		
 		<!-- header -->
-		<div id="header">
+		<header id="header">
 			<div class="container">
-			
+				<div id="title-position">
+					<h1>{{ header.getTitle }}</h1>
+		    		<span id="subtitle">{{ header.getSubtitle }}</span>
+				</div>
 			</div>
-		</div>
+		</header>
 		
-		<div id="main-wrapper">
-			<h1>{{ header.getTitle }}</h1>
-		    <h2>{{ header.getSubtitle }}</h2>
-		    
-		    {{ template }}
-		</div>
+		<!-- container -->
+		<section id="container">
+			<div class="container">
+				{{ template }}
+			</div>
+		</section>
+
 		
         
 

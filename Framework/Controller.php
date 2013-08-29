@@ -95,8 +95,8 @@ class Controller extends Base {
 				
 			$view = new View(array(
 					"file" => APP_PATH."/{$defaultPath}/{$controller}/{$action}.{$defaultExtension}",
-					"filename" => "{$action}.{$defaultExtension}",
-					"path" => APP_PATH."/{$defaultPath}/{$controller}/",
+					"filename" => "{$controller}/{$action}.{$defaultExtension}",
+					"path" => APP_PATH."/{$defaultPath}/",
 			));
 				
 			$this->setActionView($view);
