@@ -93,14 +93,16 @@ class Controller extends \Framework\Controller {
 			
 		Events::add("framework.router.afterhooks.after", function($parameters) {
 			
-			$view = $this->getActionView();
-			$account = new \application\components\Account\Account(
-				"Mon Compte",
-				$this->getUser()->first, 
-				$this->getUser()->last,
-				$this->getUser()->admin
-			);
-			$view
+			if ($this->getUser())
+			{
+				$view = $this->getActionView();
+				$account = new \application\components\Account\Account(
+						"Mon Compte",
+						$this->getUser()->first,
+						$this->getUser()->last,
+						$this->getUser()->admin
+				);
+				$view
 				->set("account_title", $account->getTitle())
 				->set("account_first", $account->getUFirst())
 				->set("account_last", $account->getULast())
@@ -108,7 +110,8 @@ class Controller extends \Framework\Controller {
 				->set("account_ip_adress", $account->getIpAdress())
 				->set("account_logout", $account->getLogoutLink())
 				->set("account_admin_link", $account->getAdminSectionLink())
-			;
+				;
+			}
 		});
 		
 		// schedule: disconnect from database
