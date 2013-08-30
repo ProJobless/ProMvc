@@ -14,4 +14,13 @@ class News extends Controller {
 	{
 		
 	}
+	
+	/**
+	 * Page role : Add a news
+	 * @before _secure, _admin
+	 */
+	public function add()
+	{
+		
+	}
 }

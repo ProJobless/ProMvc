@@ -38,10 +38,10 @@
 			<div class="container">
 				<ul class="top-menu">
 					<li>
-						<a href="">Home</a>
+						<a href="/">Home</a>
 					</li>
 					<li>
-						<a href="">Contact</a>
+						<a href="/news">News</a>
 					</li>
 				</ul>
 			</div>
