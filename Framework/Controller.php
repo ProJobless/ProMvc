@@ -177,7 +177,7 @@ class Controller extends Base {
 		{
 			if ($route->name == $name)
 			{
-				header("Location: {$route->pattern}");
+				header("Location: ".BASE_URL."{$route->pattern}");
 			}
 		}
 	}

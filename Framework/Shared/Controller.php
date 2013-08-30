@@ -116,6 +116,7 @@ class Controller extends \Framework\Controller {
 			
 			// set genreric path to the view
 			$this->getLayoutView()->set("path_css", CSS);
+			$this->getLayoutView()->set("path_js" , JS);
 
 		});
 		

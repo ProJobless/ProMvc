@@ -11,7 +11,11 @@ $routes = array(
 				"controller" => "news",
 				"action" 	 => "index"
 		),
-		
+		array(
+				"pattern" => "news/delete/:id",
+				"controller" => "news",
+				"action" => "delete"
+		),
 		array(
 				"pattern" => "users/view",
 				"controller" => "users",

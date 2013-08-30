@@ -20,7 +20,7 @@ class News extends Model {
 	 * @type text
 	 * @length 255
 	 *
-	 * @validate required, alpha, min(3)
+	 * @validate required, min(3)
 	 * @label title
 	 */
 	protected $_title;

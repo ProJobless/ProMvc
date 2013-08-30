@@ -20,6 +20,9 @@
         
         <!--  components -->
         <link rel="stylesheet" href="{{ path_css }}components/auth/auth.css">
+        <link rel="stylesheet" href="{{ path_css }}components/news/news.css">
+        <!-- cleditor -->
+        <link rel="stylesheet" href="{{ path_css }}plugins/cleditor/jquery.cleditor.css">
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,7 +30,20 @@
         <![endif]-->
         
         <!-- amcharts -->
-        <script src="assets/js/amcharts/amcharts.js"></script>
+        <script src="{{ path_js }}amcharts/amcharts.js"></script>
+        
+        
+        
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ path_js }}vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="{{ path_js }}plugins.js"></script>
+        <script src="{{ path_js }}main.js"></script>
+		
+		<script src="{{ path_js }}bootstrap/bootstrap.min.js"></script>
+        <script src="{{ path_js }}plugins/cleditor/jquery.cleditor.min.js"></script>
+        
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -68,13 +84,7 @@
 		
         
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-
-        <script src="assets/js/plugins.js"></script>
-        <script src="assets/js/main.js"></script>
-		
-		<script src="assets/js/bootstrap/bootstrap.min.js"></script>
+        
 		
 		
         <script>
