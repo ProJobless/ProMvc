@@ -113,6 +113,10 @@ class Controller extends \Framework\Controller {
 				;
 			}
 
+			
+			// set genreric path to the view
+			$this->getLayoutView()->set("path_css", CSS);
+
 		});
 		
 		// schedule: disconnect from database
