@@ -6,6 +6,14 @@ define("APP_PATH", dirname(dirname(__FILE__)));
 define("DS", DIRECTORY_SEPARATOR);
 define("CONTROLLER", DS . "application" . DS . "controllers" . DS);
 
+//PUBLIC
+define('BASE_URL',      'http://'.$_SERVER["SERVER_NAME"].'/');
+define('ASSETS',        'http://'.$_SERVER["SERVER_NAME"].'/public/assets/');
+define('CSS',           ASSETS.'css/');
+define('JS',            ASSETS.'js/');
+
+
+
 try {
 	// 2. load the Core class that includes an autoloader
 	require("../Framework/Core.php");

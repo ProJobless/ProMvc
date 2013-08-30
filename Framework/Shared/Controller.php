@@ -112,6 +112,9 @@ class Controller extends \Framework\Controller {
 				->set("account_admin_link", $account->getAdminSectionLink())
 				;
 			}
+			
+			// set genreric path to the view
+			$this->getLayoutView()->set("path_css", CSS);
 		});
 		
 		// schedule: disconnect from database

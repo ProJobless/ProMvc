@@ -11,21 +11,22 @@
         <meta name="description" content="">
 		
 		<!-- Boilerplate -->
-        <link rel="stylesheet" href="assets/css/normalize.min.css">
-        <link rel="stylesheet" href="assets/css/main.css">
+        <link rel="stylesheet" href="{{ path_css }}normalize.min.css">
+        <link rel="stylesheet" href="{{ path_css }}main.css">
         <!-- Bootstrap -->
-    	<link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+    	<link href="{{ path_css }}bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     	<!-- Custum -->
-        <link rel="stylesheet" href="assets/css/portal.css">
+        <link rel="stylesheet" href="{{ path_css }}portal.css">
         
         <!--  components -->
-        <link rel="stylesheet" href="assets/css/components/auth/auth.css">
+        <link rel="stylesheet" href="{{ path_css }}components/auth/auth.css">
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="assets/js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
         
+        <!-- amcharts -->
         <script src="assets/js/amcharts/amcharts.js"></script>
     </head>
     <body>
