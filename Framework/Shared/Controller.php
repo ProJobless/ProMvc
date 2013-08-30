@@ -112,8 +112,7 @@ class Controller extends \Framework\Controller {
 				->set("account_admin_link", $account->getAdminSectionLink())
 				;
 			}
-			
-			
+
 		});
 		
 		// schedule: disconnect from database

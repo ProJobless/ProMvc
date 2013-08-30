@@ -82,8 +82,6 @@ class Index extends \Framework\Shared\Controller {
 			->set("contact_directique", $contact->getDirectique())
 		;
 		
-		
-
 	}
 	
 	/**
