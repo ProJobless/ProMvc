@@ -2,9 +2,9 @@
 
 namespace application\controllers;
 
-use application\components\Contact\Contact;
+use application\models\News;
 
-use application\components\Account\Account;
+use application\components\Contact\Contact;
 
 use \Twig_Loader_String;
 use \Twig_Environment;
@@ -44,7 +44,23 @@ class Index extends \Framework\Shared\Controller {
 	 */
 	public function index()
 	{	
+		
+		
 		$view = $this->getActionView();
+		
+		$db = Registry::get("database");
+		
+		$news = new News(array(
+			"connector" => $db
+		));
+		$new = $news->count();
+		if ($new == 0)
+		{
+			$db->sync($news);
+		}
+		
+		
+		
 		
 		$contact = new Contact(array(
 			"title" => "Infos Contact"
@@ -67,24 +83,7 @@ class Index extends \Framework\Shared\Controller {
 		;
 		
 		
-		
-		$account = new Account(
-			"Mon Compte",
-			$this->getUser()->first, 
-			$this->getUser()->last,
-			$this->getUser()->admin
-		);
-		
-		
-		$view
-			->set("account_title", $account->getTitle())
-			->set("account_first", $account->getUFirst())
-			->set("account_last", $account->getULast())
-			->set("account_admin", $account->getUAdmin())
-			->set("account_ip_adress", $account->getIpAdress())
-			->set("account_logout", $account->getLogoutLink())
-			->set("account_admin_link", $account->getAdminSectionLink())
-		;
+
 	}
 	
 	/**

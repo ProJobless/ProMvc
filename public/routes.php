@@ -4,6 +4,12 @@
 
 $routes = array(
 		
+		
+		array(
+				"pattern" => "news",
+				"controller" => "news",
+				"action" => "index"
+		),
 		array(
 				"pattern" => "users/view",
 				"controller" => "users",
