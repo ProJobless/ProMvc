@@ -78,8 +78,8 @@ class Controller extends \Framework\Controller {
 		// it will occur after all the action hooks and actions are executed
 		Events::add("framework.router.afterhooks.after", function($parameters) {
 			
-			// var_dump("framework.router.afterhooks.after");
-		
+			//var_dump("framework.router.afterhooks.after");
+			
 			$controller = Registry::get("controller");
 			
 			if ($controller->user)
@@ -90,12 +90,34 @@ class Controller extends \Framework\Controller {
 				$session->set("user", $controller->user->id);
 			}
 		});
+			
+		Events::add("framework.router.afterhooks.after", function($parameters) {
+			
+			$view = $this->getActionView();
+			$account = new \application\components\Account\Account(
+				"Mon Compte",
+				$this->getUser()->first, 
+				$this->getUser()->last,
+				$this->getUser()->admin
+			);
+			$view
+				->set("account_title", $account->getTitle())
+				->set("account_first", $account->getUFirst())
+				->set("account_last", $account->getULast())
+				->set("account_admin", $account->getUAdmin())
+				->set("account_ip_adress", $account->getIpAdress())
+				->set("account_logout", $account->getLogoutLink())
+				->set("account_admin_link", $account->getAdminSectionLink())
+			;
+		});
 		
 		// schedule: disconnect from database
 		Events::add("framework.controller.destruct.after", function($name) {
 			$database = Registry::get("database");
 			$database->disconnect(); 
 		});
+		
+		
 		
 		
 		

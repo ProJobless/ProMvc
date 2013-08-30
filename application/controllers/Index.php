@@ -44,6 +44,8 @@ class Index extends \Framework\Shared\Controller {
 	 */
 	public function index()
 	{	
+		
+		
 		$view = $this->getActionView();
 		
 		$contact = new Contact(array(
@@ -68,23 +70,7 @@ class Index extends \Framework\Shared\Controller {
 		
 		
 		
-		$account = new Account(
-			"Mon Compte",
-			$this->getUser()->first, 
-			$this->getUser()->last,
-			$this->getUser()->admin
-		);
 		
-		
-		$view
-			->set("account_title", $account->getTitle())
-			->set("account_first", $account->getUFirst())
-			->set("account_last", $account->getULast())
-			->set("account_admin", $account->getUAdmin())
-			->set("account_ip_adress", $account->getIpAdress())
-			->set("account_logout", $account->getLogoutLink())
-			->set("account_admin_link", $account->getAdminSectionLink())
-		;
 	}
 	
 	/**
