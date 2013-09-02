@@ -44,11 +44,42 @@ class Index extends \Framework\Shared\Controller {
 	 */
 	public function index()
 	{	
-		
-		
 		$view = $this->getActionView();
-		
 		$db = Registry::get("database");
+		
+		$right_components = "";
+		
+		if (($configuration = Registry::get("configuration")) != false)
+		{
+			$configuration = $configuration->initialize();
+			$ini = $configuration->parse("configuration/configuration");
+			
+			$index = "index";
+			if (isset($ini->config->page->$index->right))
+			{
+				$right = $ini->config->page->$index->right;
+				foreach ($right as $component)
+				{
+					$right_components.="{% include 'components/{$component}/{$component}.tpl' %}";
+				}
+			}
+			
+		}
+		
+		$out = "
+		<div class=\"row\">
+			<div class=\"col-md-3\">.col-md-3</div>
+		    <div class=\"col-md-7\">
+		    	main
+		    </div>
+		    <div class=\"col-md-2\">
+		    	{$right_components}
+		    </div>
+		</div>		
+		";
+		
+		file_put_contents(APP_PATH . "/application/views/index/index.tpl", $out);
+		
 		
 		$news = new News(array(
 			"connector" => $db

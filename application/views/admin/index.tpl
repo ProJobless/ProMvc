@@ -1,0 +1,1 @@
+{% include 'components/account/account.tpl' %}
