@@ -6,8 +6,6 @@ use application\models\User;
 
 use Framework\Events;
 
-use application\components\header\Header;
-
 use Framework\Registry;
 
 use Framework\Router as Router;
@@ -128,28 +126,33 @@ class Controller extends \Framework\Controller {
 		
 		
 		
-		
-		
-	
-		// set the Header component
-		$configuration = Registry::get("configuration");
-		if ($configuration)
-		{
-			$configuration = $configuration->initialize();
-			$parsed = $configuration->parse("configuration/configuration");
-	
-			if (!empty($parsed->config->component->header->title))
+		Events::add("framework.router.beforehooks.before", function($parameters) {
+			
+			$layout = $this->getLayoutView();
+			$configuration = Registry::get("configuration");
+			if ($configuration)
 			{
-				$cHeader = new Header(array(
-					"title"     => $parsed->config->component->header->title,
-					"subtitle"  => $parsed->config->component->header->subtitle,
-					"titleLink" => "/"
-				));
+				$configuration = $configuration->initialize();
+				$parsed = $configuration->parse("configuration/configuration");
+				
+				foreach ($parsed->config->component as $component => $params)
+				{
+					if ($params->active == '1')
+					{
+						$name = '\application\components\\' . $component . '\\' . ucfirst($component);
+						$instance = new $name;
+						$instance->initialize($params);
+						$layout->set("component_" . $component, $instance);
+					}
+				}
+				
 			}
-		}
+			
+			
+		});
 		
-		$layout = $this->getLayoutView();
-		$layout->set("header", $cHeader);
+	
+		
 	}
 	
 	public function render()

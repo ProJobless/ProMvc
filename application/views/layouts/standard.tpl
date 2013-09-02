@@ -64,15 +64,18 @@
 			</div>
 		</section>
 		
-		<!-- header -->
-		<header id="header">
-			<div class="container">
-				<div id="title-position">
-					<h1><a href="{{ header.getTitleLink }}">{{ header.getTitle }}</a></h1>
-		    		<span id="subtitle">{{ header.getSubtitle }}</span>
+		{% if component_header %}
+			<!-- header -->
+			<header id="header">
+				<div class="container">
+					<div id="title-position">
+						<h1><a href="{{ component_header.getTitleLink }}">{{ component_header.getTitle }}</a></h1>
+			    		<span id="subtitle">{{ component_header.getSubtitle }}</span>
+					</div>
 				</div>
-			</div>
-		</header>
+			</header>
+		{% endif %}
+		
 		
 		<!-- container -->
 		<section id="container">
@@ -80,8 +83,15 @@
 				{{ template }}
 			</div>
 		</section>
-
 		
+		{% if component_footer %}
+			<!-- footer -->
+			<footer id="footer">
+				<div class="container">
+					{{ component_footer.getText }}
+				</div>
+			</footer>
+		{% endif %}
         
 
         

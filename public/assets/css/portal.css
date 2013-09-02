@@ -133,3 +133,14 @@ textarea {
 	color: #dc3f35;
 	font-size: 13px;
 }
+
+/*
+ * footer
+ */
+#footer .container {
+	background: white url(../img/footer_b.png);
+	height: 50px;
+	position: relative;
+	-webkit-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
