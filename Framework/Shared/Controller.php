@@ -94,24 +94,20 @@ class Controller extends \Framework\Controller {
 			if ($this->getUser())
 			{
 				$view = $this->getActionView();
-				$account = new \application\components\Account\Account(
-						"Mon Compte",
-						$this->getUser()->first,
-						$this->getUser()->last,
-						$this->getUser()->admin
+				$account = new \application\components\Account\Account;
+				$account->initialize(
+					"Mon Compte",
+					$this->getUser()->first,
+					$this->getUser()->last,
+					$this->getUser()->admin
 				);
-				$view
-				->set("account_title", $account->getTitle())
-				->set("account_first", $account->getUFirst())
-				->set("account_last", $account->getULast())
-				->set("account_admin", $account->getUAdmin())
-				->set("account_ip_adress", $account->getIpAdress())
-				->set("account_logout", $account->getLogoutLink())
-				->set("account_admin_link", $account->getAdminSectionLink())
-				;
+				
+				foreach ($account->templateVar() as $template_var => $var)
+				{
+					$view->set($template_var, $var);
+				}
 			}
 
-			
 			// set genreric path to the view
 			$this->getLayoutView()->set("path_css", CSS);
 			$this->getLayoutView()->set("path_js" , JS);
@@ -135,7 +131,7 @@ class Controller extends \Framework\Controller {
 				$configuration = $configuration->initialize();
 				$parsed = $configuration->parse("configuration/configuration");
 				
-				foreach ($parsed->config->component as $component => $params)
+				foreach ($parsed->config->component->standard as $component => $params)
 				{
 					if ($params->active == '1')
 					{

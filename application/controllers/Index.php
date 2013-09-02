@@ -60,7 +60,25 @@ class Index extends \Framework\Shared\Controller {
 				$right = $ini->config->page->$index->right;
 				foreach ($right as $component)
 				{
-					$right_components.="{% include 'components/{$component}/{$component}.tpl' %}";
+					if (is_string($component)) 
+					{
+						// set the template component
+						$right_components.="{% include 'components/{$component}/{$component}.tpl' %}";
+						
+						// initialize components from the ini file
+						if ($right->$component->core == "")
+						{
+							$name = '\application\components\\' . $component . '\\' . ucfirst($component);
+							$instance = new $name;
+							$instance->initialize($right->$component);
+							
+							foreach ($instance->templateVar() as $template_var => $var)
+							{
+								$view->set($template_var, $var);
+							}
+						}
+						
+					}
 				}
 			}
 			
@@ -82,36 +100,13 @@ class Index extends \Framework\Shared\Controller {
 		
 		
 		$news = new News(array(
-			"connector" => $db
+				"connector" => $db
 		));
 		$new = $news->count();
 		if ($new == 0)
 		{
 			$db->sync($news);
 		}
-		
-		
-		
-		
-		$contact = new Contact(array(
-			"title" => "Infos Contact"
-		));
-		
-		$contact->addDirectique(array(
-			User::first(array(
-				"id=?" => "4"
-			)),
-			User::first(array(
-				"id=?" => "2"
-			))
-		));
-		
-		
-		
-		$view
-			->set("contact_title", $contact->title)
-			->set("contact_directique", $contact->getDirectique())
-		;
 		
 	}
 	

@@ -3,6 +3,7 @@
 namespace application\components\Contact;
 
 use Framework\Base;
+use application\models\User;
 
 class Contact extends Base {
 	
@@ -55,6 +56,28 @@ class Contact extends Base {
 		
 		return $d;
 	}
+	
+	public function initialize($params)
+	{
+		$this->_title = $params->title;
+		
+		foreach ($params->directique as $user_id)
+		{
+			$users[] = User::first(array(
+				"id=?" => $user_id
+			));
+		}
+		$this->addDirectique($users);
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function templateVar()
+	{
+		$r= array();
+		$r['contact_title'] = $this->title;
+		$r['contact_directique'] = $this->getDirectique();
+		return $r;
+	}
 }
-
-?>

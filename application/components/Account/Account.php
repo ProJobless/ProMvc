@@ -34,7 +34,7 @@ class Account {
 	 * @param string $_uLast
 	 * @param string $_uAdmin
 	 */
-	public function __construct($_title, $_uFirst, $_uLast, $_uAdmin)
+	public function initialize($_title, $_uFirst, $_uLast, $_uAdmin)
 	{
 		$this->setTitle($_title);
 		$this->setUFirst($_uFirst);
@@ -78,5 +78,21 @@ class Account {
 	public function getLogoutLink()
 	{
 		return "logout";
+	}
+	
+	/**
+	 * @return array
+	 */
+	public function templateVar()
+	{
+		$r= array();
+		$r['account_title'] = $this->getTitle();
+		$r['account_first'] = $this->getUFirst();
+		$r['account_last'] = $this->getULast();
+		$r['account_admin'] = $this->getUAdmin();
+		$r['account_ip_adress'] = $this->getIpAdress();
+		$r['account_logout'] = $this->getLogoutLink();
+		$r['account_admin_link'] = $this->getAdminSectionLink();
+		return $r;
 	}
 }
