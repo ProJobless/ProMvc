@@ -81,18 +81,39 @@ class Index extends \Framework\Shared\Controller {
 					}
 				}
 			}
-			
+		}
+		
+		$right = $right_components;
+		$left = "";
+		
+		// 3 cases : 
+		// 3 colonnes 2-8-2
+		// 2 colonnes 2-10 ou 10-2
+		// 1 colonne 12
+		if ($right == "" && $left == "")
+		{
+			$out_content = "<div class=\"col-md-12\">main</div>";
+		}
+		else if ($right == "")
+		{
+			$out_content = "<div class=\"col-md-2\">{$left}</div>";
+			$out_content.= "<div class=\"col-md-10\">main</div>";
+		}
+		else if ($left == "")
+		{
+			$out_content = "<div class=\"col-md-10\">main</div>";
+			$out_content.= "<div class=\"col-md-2\">{$right}</div>";
+		}
+		else 
+		{
+			$out_content = "<div class=\"col-md-2\">{$left}</div>";
+			$out_content.= "<div class=\"col-md-8\">main</div>";
+			$out_content.= "<div class=\"col-md-2\">{$right}</div>";
 		}
 		
 		$out = "
 		<div class=\"row\">
-			<div class=\"col-md-3\">.col-md-3</div>
-		    <div class=\"col-md-7\">
-		    	main
-		    </div>
-		    <div class=\"col-md-2\">
-		    	{$right_components}
-		    </div>
+			{$out_content}
 		</div>		
 		";
 		

@@ -6,6 +6,12 @@ $routes = array(
 		
 		
 		array(
+				"name" 		 => "toto",
+				"pattern"    => "page1",
+				"controller" => "dynamic",
+				"action" 	 => "index"
+		),
+		array(
 				"name" 		 => "news",
 				"pattern"    => "news",
 				"controller" => "news",
@@ -107,6 +113,29 @@ $routes = array(
 			"action" 	 => "index"
 		)
 );
+
+
+// load xml
+$dom = new DOMDocument();
+$dom->load( APP_PATH . '/application/configuration/dynamic.xml');
+foreach ($dom->getElementsByTagName('route') as $route)
+{
+	foreach ($route->childNodes as $e)
+	{
+		if (is_a($e, 'DOMElement'))
+		{
+			if ($e->tagName == 'name')
+			{
+				$routes[] = array(
+					"name"  	 => $e->textContent,
+					"pattern" 	 => $e->textContent,
+					"controller" => "dynamic",
+					"action" 	 => "index"
+				);
+			}
+		}
+	}
+}
 
 // add defined routes
 

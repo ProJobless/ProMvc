@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+	<route>
+		<name>page1</name>
+		<right>
+			<component name="contact" core="false">
+				<params>
+					<title>Contactddd !</title>
+					<directique>4</directique>
+					<directique>2</directique>
+				</params>
+			</component>
+		</right>
+	</route>
+	<route>
+		<name>petits</name>
+	</route>
+	
+	<route>
+		<name>page3</name>
+		
+	<right><component name="contact" core="false"><params><title>test</title></params></component></right></route>
+</routes>
