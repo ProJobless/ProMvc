@@ -11,6 +11,24 @@
 				</params>
 			</component>
 		</right>
+		<left>
+			<component name="contact" core="false">
+				<params>
+					<title>Contact gauche !</title>
+					<directique>4</directique>
+					<directique>2</directique>
+				</params>
+			</component>
+		</left>
+		<center>
+			<component name="contact" core="false">
+				<params>
+					<title>Contact centre !</title>
+					<directique>4</directique>
+					<directique>2</directique>
+				</params>
+			</component>
+		</center>
 	</route>
 	<route>
 		<name>petits</name>

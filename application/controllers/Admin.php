@@ -14,7 +14,7 @@ class Admin extends \Framework\Shared\Controller {
 		$dom->load( APP_PATH . '/application/configuration/dynamic.xml');
 		
 		// add a route
-		$route = $dom->createElement('route');
+		$route = $dom->createElement('route');	
 		$name = $dom->createElement('name');
 		$nameText = $dom->createTextNode('page3');
 		$name->appendChild($nameText);

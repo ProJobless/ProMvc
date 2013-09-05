@@ -10,6 +10,11 @@ class Contact extends Base {
 	/**
 	 * @readwrite
 	 */
+	protected $_id;
+	
+	/**
+	 * @readwrite
+	 */
 	protected $_title;
 	
 	/**
