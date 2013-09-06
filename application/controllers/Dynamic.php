@@ -29,61 +29,71 @@ class Dynamic extends \Framework\Shared\Controller {
 				{
 					// set the template component
 					$component = $oComponent->attributes()['name'];
-					$right_components.="{% include 'components/{$component}/{$component}.tpl' %}";
+					
 					
 					if ($oComponent->attributes()['core'] == "false")
 					{
 						$name = '\application\components\\' . $component . '\\' . ucfirst($component);
 						$instance = new $name;
+						$nb = spl_object_hash($instance);
 						$instance->initialize($oComponent->params);
 						
 						foreach ($instance->templateVar() as $template_var => $var)
 						{
-							$view->set($template_var, $var);
+							$tmp[$nb][$template_var] = $var;
 						}
 					}
+					
+					$right_components.="{% include 'components/{$component}/{$component}.tpl' with {'nb': '{$nb}'} %}";
 				}
 				
 				foreach ($route->left->component as $oComponent)
 				{
 					// set the template component
 					$component = $oComponent->attributes()['name'];
-					$left_components.="{% include 'components/{$component}/{$component}.tpl' %}";
 					
 					if ($oComponent->attributes()['core'] == "false")
 					{
 						$name = '\application\components\\' . $component . '\\' . ucfirst($component);
 						$instance = new $name;
+						$nb = spl_object_hash($instance);
 						$instance->initialize($oComponent->params);
 					
 						foreach ($instance->templateVar() as $template_var => $var)
 						{
-							$view->set($template_var, $var);
+							$tmp[$nb][$template_var] = $var;
 						}
 					}
+					
+					$left_components.="{% include 'components/{$component}/{$component}.tpl' with {'nb': '{$nb}'} %}";
 				}
 				
 				foreach ($route->center->component as $oComponent)
 				{
 					// set the template component
 					$component = $oComponent->attributes()['name'];
-					$center_components.="{% include 'components/{$component}/{$component}.tpl' %}";
 						
 					if ($oComponent->attributes()['core'] == "false")
 					{
 						$name = '\application\components\\' . $component . '\\' . ucfirst($component);
 						$instance = new $name;
+						$nb = spl_object_hash($instance);
 						$instance->initialize($oComponent->params);
 							
 						foreach ($instance->templateVar() as $template_var => $var)
 						{
-							$view->set($template_var, $var);
+							//$view->set($template_var, $var);
+							$tmp[$nb][$template_var] = $var;
 						}
+						
+						//$view->set($component, $tmp);
+						$view->set('' . $component . '', $tmp);
 					}
+					
+					$center_components.="{% include 'components/{$component}/{$component}.tpl' with {'nb': '{$nb}'} %}";
 				}
 			}
 		}
-		
 		
 		$right = $right_components;
 		$left = $left_components;
