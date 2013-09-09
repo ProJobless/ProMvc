@@ -10,6 +10,11 @@
 					<directique>2</directique>
 				</params>
 			</component>
+			<component name="text" core="false">
+				<params>
+					<content>blabla !</content>
+				</params>
+			</component>
 		</right>
 		<left>
 			<component name="contact" core="false">
@@ -21,6 +26,11 @@
 			</component>
 		</left>
 		<center>
+			<component name="text" core="false">
+				<params>
+					<content>Bienvenue sur le site</content>
+				</params>
+			</component>
 			<component name="contact" core="false">
 				<params>
 					<title>Contact centre !</title>

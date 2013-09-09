@@ -36,12 +36,15 @@ class Dynamic extends \Framework\Shared\Controller {
 						$name = '\application\components\\' . $component . '\\' . ucfirst($component);
 						$instance = new $name;
 						$nb = spl_object_hash($instance);
+						
 						$instance->initialize($oComponent->params);
 						
 						foreach ($instance->templateVar() as $template_var => $var)
 						{
 							$tmp[$nb][$template_var] = $var;
 						}
+						
+						$view->set('' . $component . '', $tmp);
 					}
 					
 					$right_components.="{% include 'components/{$component}/{$component}.tpl' with {'nb': '{$nb}'} %}";
@@ -63,6 +66,8 @@ class Dynamic extends \Framework\Shared\Controller {
 						{
 							$tmp[$nb][$template_var] = $var;
 						}
+						
+						$view->set('' . $component . '', $tmp);
 					}
 					
 					$left_components.="{% include 'components/{$component}/{$component}.tpl' with {'nb': '{$nb}'} %}";
