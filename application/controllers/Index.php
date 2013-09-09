@@ -2,6 +2,8 @@
 
 namespace application\controllers;
 
+use application\models\Text;
+
 use application\models\News;
 
 use application\components\Contact\Contact;
@@ -128,7 +130,6 @@ class Index extends \Framework\Shared\Controller {
 		{
 			$db->sync($news);
 		}
-		
 	}
 	
 	/**
