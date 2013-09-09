@@ -2,6 +2,8 @@
 .buildpath
 .project
 
+/application/views/dynamic/index.tpl
+
 INSTALL.txt
 LICENSE.txt
 README.txt
